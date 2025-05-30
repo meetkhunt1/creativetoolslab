@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Image Color Changer</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Image Color Changer</h1>
+            <p>Upload an image, modify colors, and download in your preferred format.</p>
+        </header>
+
+        <main>
+            <div class="upload-container" id="upload-container">
+                <div id="dropzone" class="dropzone">
+                    <div class="upload-icon">
+                        <svg width="40" height="40" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M12 16L12 8" stroke="#7E8C9A" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                            <path d="M9 11L12 8 15 11" stroke="#7E8C9A" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                            <path d="M8 16H16" stroke="#7E8C9A" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                            <path d="M3 19H21" stroke="#7E8C9A" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                        </svg>
+                    </div>
+                    <p>Drag and drop an image here or <span class="upload-btn">browse</span></p>
+                    <p class="upload-info">Supports JPG, PNG, SVG (max 5MB)</p>
+                    <input type="file" id="file-input" accept=".jpg,.jpeg,.png,.svg,.webp" hidden>
+                </div>
+            </div>
+
+            <div class="editor-container" id="editor-container" style="display: none">
+                <div class="editor-header">
+                    <h2>Edit Image</h2>
+                    <button id="back-btn" class="back-btn">
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M19 12H5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                            <path d="M12 19L5 12 12 5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                        </svg>
+                        Back
+                    </button>
+                </div>
+
+                <div class="image-preview-container">
+                    <div class="image-preview">
+                        <h3>Original Image</h3>
+                        <div class="image-holder" id="original-image-holder"></div>
+                    </div>
+                    <div class="image-preview">
+                        <h3>Modified Image</h3>
+                        <div class="image-holder" id="modified-image-holder"></div>
+                    </div>
+                </div>
+
+                <div class="editor-options">
+                    <div class="color-replacements">
+                        <h3>Color Replacements</h3>
+                        <div id="color-replacements-container">
+                            <!-- Dynamic color pairs will be added here -->
+                        </div>
+                        <button id="add-color-btn" class="add-color-btn">+ Add Another Color Replacement</button>
+                        
+                        <div class="tolerance-control">
+                            <label for="color-tolerance">Color Tolerance: <span id="tolerance-value">20</span></label>
+                            <input type="range" id="color-tolerance" min="0" max="100" value="20">
+                        </div>
+                    </div>
+
+                    <div class="actions">
+                        <div class="download-options">
+                            <button id="download-btn" class="primary-btn">
+                                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                    <path d="M21 15V19C21 19.5304 20.7893 20.0391 20.4142 20.4142C20.0391 20.7893 19.5304 21 19 21H5C4.46957 21 3.96086 20.7893 3.58579 20.4142C3.21071 20.0391 3 19.5304 3 19V15" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                    <path d="M7 10L12 15 17 10" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                    <path d="M12 15V3" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                </svg>
+                                Download
+                            </button>
+                            <div class="download-format">
+                                <select id="download-format">
+                                    <option value="png">PNG</option>
+                                    <option value="jpeg">JPEG</option>
+                                    <option value="webp">WebP</option>
+                                    <option value="svg">SVG (if source is SVG)</option>
+                                </select>
+                            </div>
+                        </div>
+                        
+                        <div class="edit-actions">
+                            <button id="undo-btn" class="action-btn" disabled>
+                                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                    <path d="M3 10H13C17.4183 10 21 13.5817 21 18V20M3 10L9 16M3 10L9 4" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                </svg>
+                                Undo
+                            </button>
+                            <button id="redo-btn" class="action-btn" disabled>
+                                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                    <path d="M21 10H11C6.58172 10 3 13.5817 3 18V20M21 10L15 16M21 10L15 4" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                </svg>
+                                Redo
+                            </button>
+                            <button id="reset-btn" class="action-btn">
+                                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                    <path d="M21 3V8H16" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                    <path d="M3 16V21H8" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                    <path d="M18.5 8C17.3177 6.4404 15.6287 5.35947 13.7467 4.95123C11.8647 4.54299 9.9047 4.82392 8.2304 5.74056C6.55609 6.6572 5.2796 8.15232 4.62842 9.95702C3.97724 11.7617 3.99009 13.7381 4.666 15.5329" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                    <path d="M5.5 16C6.6823 17.5596 8.3713 18.6405 10.2533 19.0488C12.1353 19.457 14.0953 19.1761 15.7696 18.2594C17.4439 17.3428 18.7204 15.8477 19.3716 14.043C20.0228 12.2383 20.0099 10.2619 19.334 8.46711" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                </svg>
+                                Reset
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+
+        <footer>
+            <button id="help-btn" class="help-btn">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <circle cx="12" cy="12" r="10" stroke="#7E8C9A" stroke-width="2"/>
+                    <path d="M12 17V16.9929" stroke="#7E8C9A" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                    <path d="M12 14C11.9886 13.1873 12.0709 12.3818 12.7035 11.791C13.3361 11.2002 14.0954 10.997 14.7115 10.546C15.3277 10.0952 15.7286 9.29347 15.6896 8.54477C15.6506 7.79606 15.2935 7.05396 14.6761 6.59042C14.0587 6.12689 13.1789 5.95999 12.3792 6.15432C11.5794 6.34865 10.9133 6.88823 10.5743 7.64727" stroke="#7E8C9A" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+                Help
+            </button>
+        </footer>
+    </div>
+
+    <div id="help-modal" class="modal">
+        <div class="modal-content">
+            <button class="close-modal">&times;</button>
+            <h2>How to Use Image Color Changer</h2>
+            <ol>
+                <li>Upload an image by dragging and dropping or using the browse button</li>
+                <li>For regular images: Select a source color you want to change and a target color</li>
+                <li>For SVG images: Colors are automatically detected and listed for you to modify</li>
+                <li>Adjust the color tolerance slider if needed</li>
+                <li>Use the undo, redo, and reset buttons as needed</li>
+                <li>When satisfied, select your preferred download format and click Download</li>
+            </ol>
+        </div>
+    </div>
+
+    <script src="utils.js"></script>
+    <script src="colorUtils.js"></script>
+    <script src="script.js"></script>
+</body>
+</html>

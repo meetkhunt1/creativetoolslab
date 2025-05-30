@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Getting Started with Web Development | Modern Blog</title>
+    <link rel="stylesheet" href="../../assets/css/styles.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&display=swap">
+</head>
+<body>
+    <!-- Header -->
+    <header id="header"></header>
+
+    <!-- Main Content -->
+    <main class="main-content">
+        <article class="blog-post">
+            <div class="container">
+                <div class="post-header">
+                    <h1>Getting Started with Web Development</h1>
+                    <div class="post-meta">
+                        <span class="post-date">Published: April 15, 2025</span>
+                        <span class="post-author">By: John Developer</span>
+                    </div>
+                    <div class="post-featured-image">
+                        <img src="https://images.pexels.com/photos/3861969/pexels-photo-3861969.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1" 
+                             alt="Web Development illustration">
+                    </div>
+                </div>
+                
+                <div class="post-content">
+                    <p>Web development can seem intimidating at first, but with the right approach, anyone can learn the basics and start building beautiful websites. In this guide, we'll explore the fundamental technologies that power the web and how to get started with each one.</p>
+                    
+                    <h2>Understanding HTML: The Structure</h2>
+                    <p>HTML (HyperText Markup Language) is the backbone of any webpage. It defines the structure and content of your web pages using a series of elements represented by tags.</p>
+                    
+                    <pre><code>&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+&lt;head&gt;
+    &lt;title&gt;My First Web Page&lt;/title&gt;
+&lt;/head&gt;
+&lt;body&gt;
+    &lt;h1&gt;Hello, World!&lt;/h1&gt;
+    &lt;p&gt;This is my first web page.&lt;/p&gt;
+&lt;/body&gt;
+&lt;/html&gt;</code></pre>
+                    
+                    <p>This simple structure forms the foundation of every webpage you create. The &lt;head&gt; section contains metadata about the document, while the &lt;body&gt; contains the visible content.</p>
+                    
+                    <h2>CSS: Adding Style</h2>
+                    <p>CSS (Cascading Style Sheets) is what brings your HTML to life with colors, layouts, and visual effects. It allows you to control how HTML elements are displayed.</p>
+                    
+                    <pre><code>body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 20px;
+    background-color: #f5f5f5;
+}
+
+h1 {
+    color: #0077cc;
+    font-size: 2em;
+}
+
+p {
+    line-height: 1.6;
+    color: #333;
+}</code></pre>
+                    
+                    <h2>JavaScript: Adding Interactivity</h2>
+                    <p>JavaScript allows you to create dynamic and interactive web pages. From simple animations to complex applications, JavaScript is what makes modern web experiences possible.</p>
+                    
+                    <pre><code>// Simple example of JavaScript functionality
+document.getElementById('myButton').addEventListener('click', function() {
+    document.getElementById('demo').innerHTML = 'Hello, JavaScript!';
+    document.getElementById('demo').style.color = '#0077cc';
+});</code></pre>
+                    
+                    <h2>Putting It All Together</h2>
+                    <p>The beauty of web development is how these three technologies work together:</p>
+                    <ul>
+                        <li>HTML provides the structure</li>
+                        <li>CSS adds style and visual appeal</li>
+                        <li>JavaScript adds interactivity and dynamic functionality</li>
+                    </ul>
+                    
+                    <p>As you continue your journey, you'll discover frameworks, libraries, and tools that make development faster and more efficient. But mastering these core technologies first will give you a solid foundation to build upon.</p>
+                    
+                    <h2>Next Steps</h2>
+                    <p>Ready to continue learning? Here are some recommended resources:</p>
+                    <ul>
+                        <li>MDN Web Docs - Comprehensive guides and references</li>
+                        <li>freeCodeCamp - Interactive learning platform</li>
+                        <li>CSS-Tricks - Tutorials and articles focused on CSS</li>
+                        <li>JavaScript.info - In-depth JavaScript tutorials</li>
+                    </ul>
+                    
+                    <p>Remember, the best way to learn is by doing. Start with small projects and gradually challenge yourself with more complex ones. Happy coding!</p>
+                </div>
+                
+                <div class="post-navigation">
+                    <div class="post-nav-links">
+                        <a href="../index.html" class="back-to-blog">← Back to Blog</a>
+                        <a href="post2.html" class="next-post">Next Post →</a>
+                    </div>
+                </div>
+            </div>
+        </article>
+    </main>
+
+    <!-- Footer -->
+    <footer id="footer"></footer>
+
+    <!-- Scripts -->
+    <script src="../../assets/js/main.js"></script>
+</body>
+</html>

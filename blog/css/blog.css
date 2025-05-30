@@ -1,0 +1,226 @@
+/* Blog Specific Styles */
+
+/* Blog Header */
+.blog-header {
+  background: linear-gradient(120deg, var(--primary-color), var(--primary-dark));
+  color: white;
+  padding: var(--spacing-xl) 0;
+  text-align: center;
+}
+
+.blog-header h1 {
+  color: white;
+  margin-bottom: var(--spacing-md);
+}
+
+/* Blog Posts Grid */
+.blog-posts {
+  padding: var(--spacing-xxl) 0;
+  background-color: var(--background-alt);
+}
+
+.filter-container {
+  margin-bottom: var(--spacing-xl);
+}
+
+.search-box {
+  display: flex;
+  gap: var(--spacing-md);
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+.search-box input {
+  flex: 1;
+  padding: var(--spacing-md);
+  border: 1px solid var(--border-color);
+  border-radius: var(--border-radius-md);
+  font-size: 1rem;
+}
+
+.search-box button {
+  padding: var(--spacing-md) var(--spacing-xl);
+  background-color: var(--primary-color);
+  color: white;
+  border: none;
+  border-radius: var(--border-radius-md);
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.search-box button:hover {
+  background-color: var(--primary-dark);
+}
+
+.posts-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: var(--spacing-xl);
+}
+
+/* Post Card */
+.post-card {
+  background: white;
+  border-radius: var(--border-radius-lg);
+  overflow: hidden;
+  box-shadow: var(--shadow-md);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.post-card:hover {
+  transform: translateY(-5px);
+  box-shadow: var(--shadow-lg);
+}
+
+.post-image {
+  height: 200px;
+  background-size: cover;
+  background-position: center;
+}
+
+.post-content {
+  padding: var(--spacing-xl);
+}
+
+.post-content h3 {
+  margin: 0 0 var(--spacing-md);
+  color: var(--secondary-color);
+}
+
+.post-meta {
+  display: flex;
+  gap: var(--spacing-md);
+  color: var(--text-light);
+  font-size: 0.9rem;
+  margin-bottom: var(--spacing-md);
+}
+
+.read-more {
+  display: inline-block;
+  margin-top: var(--spacing-md);
+  color: var(--primary-color);
+  text-decoration: none;
+  font-weight: 500;
+}
+
+.read-more:hover {
+  color: var(--primary-dark);
+}
+
+/* Single Blog Post */
+.blog-post {
+  padding: var(--spacing-xxl) 0;
+}
+
+.post-header {
+  text-align: center;
+  margin-bottom: var(--spacing-xxl);
+}
+
+.post-featured-image {
+  margin: var(--spacing-xl) 0;
+  border-radius: var(--border-radius-lg);
+  overflow: hidden;
+}
+
+.post-featured-image img {
+  width: 100%;
+  height: auto;
+  display: block;
+}
+
+.post-content {
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+.post-content h2 {
+  margin: var(--spacing-xl) 0 var(--spacing-md);
+  color: var(--secondary-color);
+}
+
+.post-content p {
+  margin-bottom: var(--spacing-md);
+  color: var(--text-color);
+}
+
+.post-content ul,
+.post-content ol {
+  margin: var(--spacing-md) 0;
+  padding-left: var(--spacing-xl);
+}
+
+.post-content li {
+  margin-bottom: var(--spacing-sm);
+}
+
+.post-content pre {
+  background: var(--background-alt);
+  padding: var(--spacing-lg);
+  border-radius: var(--border-radius-md);
+  overflow-x: auto;
+  margin: var(--spacing-md) 0;
+}
+
+.post-content code {
+  font-family: monospace;
+  font-size: 0.9em;
+}
+
+.post-navigation {
+  margin-top: var(--spacing-xxl);
+  padding-top: var(--spacing-xl);
+  border-top: 1px solid var(--border-color);
+}
+
+.post-nav-links {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.prev-post,
+.next-post,
+.back-to-blog {
+  color: var(--primary-color);
+  text-decoration: none;
+  font-weight: 500;
+}
+
+.prev-post:hover,
+.next-post:hover,
+.back-to-blog:hover {
+  color: var(--primary-dark);
+}
+
+/* No Results */
+.no-results {
+  text-align: center;
+  padding: var(--spacing-xxl);
+}
+
+.no-results h3 {
+  margin-bottom: var(--spacing-md);
+  color: var(--secondary-color);
+}
+
+.no-results p {
+  color: var(--text-light);
+}
+
+/* Responsive Styles */
+@media (max-width: 768px) {
+  .search-box {
+    flex-direction: column;
+  }
+  
+  .post-nav-links {
+    flex-direction: column;
+    gap: var(--spacing-md);
+    text-align: center;
+  }
+  
+  .post-content {
+    padding: var(--spacing-lg);
+  }
+}
