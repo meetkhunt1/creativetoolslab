@@ -308,9 +308,9 @@ function createButtonCards() {
         const card = document.createElement('div');
         card.className = 'button-card';
         
+        // <h3 class="card-title">${effect.name}</h3>
         card.innerHTML = `
             <div class="card-content">
-                <h3 class="card-title">${effect.name}</h3>
                 <div class="button-preview">
                     <button class="${effect.className}">${effect.label}</button>
                 </div>
@@ -323,11 +323,11 @@ function createButtonCards() {
                     <span class="tooltip">Copied!</span>
                 </button>
             </div>
-            <div class="code-container">
-                <pre><code>${effect.css}</code></pre>
-            </div>
+           
         `;
-        
+        //  <div class="code-container">
+        //         <pre><code>${effect.css}</code></pre>
+        //     </div>
         buttonGrid.appendChild(card);
     });
 }
