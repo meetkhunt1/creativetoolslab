@@ -4,21 +4,21 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Image Color Changer</title>
+
     <link rel="stylesheet" href="./styles.css">
     <link rel="stylesheet" href="/assets/css/main.css">
-    <link rel="stylesheet" href="/assets/css/tools/image-color-changer.css">
-    <!-- <link rel="stylesheet" href="../../assets/css/styles.css"> -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+    <!-- <link rel="stylesheet" href="../../assets/css/base/base.css"> -->
+    <link rel="stylesheet" href="/assets/css/pages/tools/image-color-changer.css">
+    
+
 </head>
 <body>
-    <div class="container">
-        <!-- <header id="header"></header> -->
-        <header>
+    <header id="header"></header>
+    <div class="page-container">
+        <div class="page-title">
             <h1>Image Color Changer</h1>
             <p>Upload an image, modify colors, and download in your preferred format.</p>
-        </header>
+        </div>
 
         <main>
             <div class="upload-container" id="upload-container">
@@ -122,7 +122,7 @@
             </div>
         </main>
 
-        <footer>
+        <div class="help-footer">
             <button id="help-btn" class="help-btn">
                 <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                     <circle cx="12" cy="12" r="10" stroke="#7E8C9A" stroke-width="2"/>
@@ -131,8 +131,9 @@
                 </svg>
                 Help
             </button>
-        </footer>
+        </div>
     </div>
+    <footer id="footer"></footer>
 
     <div id="help-modal" class="modal">
         <div class="modal-content">

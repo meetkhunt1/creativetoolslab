@@ -50,6 +50,12 @@ function setActiveNavLink() {
       link.classList.add('active');
     } else if (linkDataNav === 'blog' && currentPath.includes('/blog/')) {
       link.classList.add('active');
-    }
+    } 
+    else if (linkDataNav === 'image-color-changer' && currentPath.includes('/blog/')) {
+      link.classList.add('active');
+    } 
+    else if (linkDataNav === 'btn-hover-effect' && currentPath.includes('/blog/')) {
+      link.classList.add('active');
+    } 
   });
 }
