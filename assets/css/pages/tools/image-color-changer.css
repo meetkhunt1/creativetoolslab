@@ -219,21 +219,31 @@ main {
 }
 
 .color-picker {
-    width: 80px;
-    height: 32px;
+    width: 100%;
+    height: 35px;
     border: 1px solid var(--border-color);
     border-radius: var(--radius-sm);
     overflow: hidden;
     cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    padding-inline: 10px;
 }
 
 .color-picker input[type="color"] {
-    width: 100%;
+    width: 30px;
     height: 100%;
     border: none;
     padding: 0;
     background: none;
     cursor: pointer;
+}
+
+.color-picker .source-color-text {
+    height: 100%;
+    padding-inline: 10px;
 }
 
 .remove-color-btn {
@@ -348,7 +358,7 @@ main {
 }
 
 .primary-btn:hover {
-    background-color: var(--primary-color-hover);
+    /* background-color: var(--primary-color-hover); */
 }
 
 .download-format select {

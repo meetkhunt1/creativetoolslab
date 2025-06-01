@@ -20,8 +20,8 @@ const originalImageHolder = document.getElementById('original-image-holder');
 const modifiedImageHolder = document.getElementById('modified-image-holder');
 const colorReplacementsContainer = document.getElementById('color-replacements-container');
 const addColorBtn = document.getElementById('add-color-btn');
-const colorToleranceSlider = document.getElementById('color-tolerance');
-const toleranceValueDisplay = document.getElementById('tolerance-value');
+// const colorToleranceSlider = document.getElementById('color-tolerance');
+// const toleranceValueDisplay = document.getElementById('tolerance-value');
 const downloadBtn = document.getElementById('download-btn');
 const downloadFormatSelect = document.getElementById('download-format');
 const undoBtn = document.getElementById('undo-btn');
@@ -37,48 +37,73 @@ function init() {
     setupEventListeners();
 }
 
+// Throttle utility
+function throttle(fn, delay) {
+    let timeout = null;
+    let lastArgs;
+    return function (...args) {
+        lastArgs = args;
+        if (!timeout) {
+            fn.apply(this, args);
+            timeout = setTimeout(() => {
+                timeout = null;
+                if (lastArgs !== args) fn.apply(this, lastArgs);
+            }, delay);
+        }
+    };
+}
+
+function debounce(fn, delay) {
+    let timeout;
+    return function (...args) {
+        clearTimeout(timeout);
+        timeout = setTimeout(() => fn.apply(this, args), delay);
+    };
+}
+
+
 // Set up event listeners
 function setupEventListeners() {
     // Upload event listeners
     dropzone.addEventListener('click', () => fileInput.click());
     fileInput.addEventListener('change', handleFileSelect);
-    
+
     dropzone.addEventListener('dragover', (e) => {
         e.preventDefault();
         dropzone.classList.add('active');
     });
-    
+
     dropzone.addEventListener('dragleave', () => {
         dropzone.classList.remove('active');
     });
-    
+
     dropzone.addEventListener('drop', (e) => {
         e.preventDefault();
         dropzone.classList.remove('active');
-        
+
         if (e.dataTransfer.files.length) {
             handleFiles(e.dataTransfer.files);
         }
     });
-    
+
     // Editor event listeners
     addColorBtn.addEventListener('click', addColorPair);
-    colorToleranceSlider.addEventListener('input', updateToleranceValue);
+    // colorToleranceSlider.addEventListener('input', updateToleranceValue);
     downloadBtn.addEventListener('click', handleDownload);
     undoBtn.addEventListener('click', handleUndo);
     redoBtn.addEventListener('click', handleRedo);
     resetBtn.addEventListener('click', handleReset);
     backBtn.addEventListener('click', goBackToUpload);
-    
+
     // Help modal
     helpBtn.addEventListener('click', () => {
         helpModal.classList.add('active');
     });
-    
+
     closeModalBtn.addEventListener('click', () => {
         helpModal.classList.remove('active');
     });
-    
+
     // Close modal when clicking outside content
     helpModal.addEventListener('click', (e) => {
         if (e.target === helpModal) {
@@ -97,45 +122,45 @@ function handleFileSelect(e) {
 // Process uploaded files
 function handleFiles(files) {
     const file = files[0];
-    
+
     // Check file size
     if (file.size > 5 * 1024 * 1024) { // 5MB limit
         showNotification('File size exceeds 5MB limit', 'error');
         return;
     }
-    
+
     // Check file type
     const validTypes = ['image/jpeg', 'image/png', 'image/svg+xml', 'image/webp'];
     if (!validTypes.includes(file.type) && !file.name.toLowerCase().endsWith('.svg')) {
         showNotification('Please upload a valid image file (JPG, PNG, SVG, WEBP)', 'error');
         return;
     }
-    
+
     // Store original file for reference
     originalFile = file;
-    
+
     // Clear previous data
     colorPairs = [];
     historyManager.reset();
-    
+
     // Process the file
     const reader = new FileReader();
-    
-    reader.onload = function(e) {
+
+    reader.onload = function (e) {
         const fileContent = e.target.result;
         isSvg = isSvgImage(file);
-        
+
         if (isSvg) {
             processSvgFile(fileContent);
         } else {
             processRasterImage(fileContent);
         }
-        
+
         // Show editor, hide upload
         uploadContainer.style.display = 'none';
         editorContainer.style.display = 'block';
     };
-    
+
     if (isSvgImage(file)) {
         reader.readAsText(file);
     } else {
@@ -147,37 +172,37 @@ function handleFiles(files) {
 function processSvgFile(svgContent) {
     // Parse SVG content
     const svgElement = parseSvgContent(svgContent);
-    
+
     // Store original SVG
     originalImage = svgElement.cloneNode(true);
     originalImageHolder.innerHTML = '';
     originalImageHolder.appendChild(originalImage.cloneNode(true));
-    
+
     // Set the initial modified image
     modifiedImage = svgElement.cloneNode(true);
     modifiedImageHolder.innerHTML = '';
     modifiedImageHolder.appendChild(modifiedImage.cloneNode(true));
-    
+
     // Extract colors from SVG
     const colors = extractColorsFromSvg(svgElement);
-    
+
     // Clear previous color pairs
     colorReplacementsContainer.innerHTML = '';
     colorPairs = [];
-    
+
     // If colors found, add them to the color pairs
     if (colors.length > 0) {
         colors.forEach(color => {
             addColorPairWithValues(color, color);
         });
-        
+
         // Show notification of detected colors
         showNotification(`${colors.length} colors detected in SVG`, 'success');
     } else {
         // Add a default color pair if no colors found
         addColorPair();
     }
-    
+
     // Add initial state to history
     historyManager.addState(createImageState(modifiedImage, colorPairs));
 }
@@ -185,31 +210,31 @@ function processSvgFile(svgContent) {
 // Process raster image (PNG, JPG, etc.)
 function processRasterImage(dataUrl) {
     const img = new Image();
-    
-    img.onload = function() {
+
+    img.onload = function () {
         // Store original image
         originalImage = img;
         originalImageHolder.innerHTML = '';
         const originalImgElement = document.createElement('img');
         originalImgElement.src = dataUrl;
         originalImageHolder.appendChild(originalImgElement);
-        
+
         // Set the initial modified image
         modifiedImageHolder.innerHTML = '';
         const modifiedImgElement = document.createElement('img');
         modifiedImgElement.src = dataUrl;
         modifiedImageHolder.appendChild(modifiedImgElement);
         modifiedImage = modifiedImgElement;
-        
+
         // Clear previous color pairs and add a default one
         colorReplacementsContainer.innerHTML = '';
         colorPairs = [];
         addColorPair();
-        
+
         // Add initial state to history
         historyManager.addState(createImageState(modifiedImage, colorPairs));
     };
-    
+
     img.src = dataUrl;
 }
 
@@ -221,7 +246,7 @@ function addColorPair() {
         source: '#cccccc',
         target: '#000000'
     };
-    
+
     colorPairs.push(colorPair);
     renderColorPair(colorPair);
     updateImage();
@@ -235,7 +260,7 @@ function addColorPairWithValues(sourceColor, targetColor) {
         source: sourceColor,
         target: targetColor
     };
-    
+
     colorPairs.push(colorPair);
     renderColorPair(colorPair);
 }
@@ -245,7 +270,7 @@ function renderColorPair(colorPair) {
     const colorPairElement = document.createElement('div');
     colorPairElement.className = 'color-pair';
     colorPairElement.dataset.id = colorPair.id;
-    
+
     colorPairElement.innerHTML = `
         <div class="color-picker-group">
             <div class="color-picker-label">Source Color</div>
@@ -260,6 +285,7 @@ function renderColorPair(colorPair) {
             <div class="color-picker-label">Target Color</div>
             <div class="color-picker">
                 <input type="color" class="target-color" value="${colorPair.target}" aria-label="Target Color">
+                <input type="text" class="target-color-text" value="${colorPair.target}" maxlength="7" aria-label="Target Hex">
             </div>
         </div>
         
@@ -270,65 +296,72 @@ function renderColorPair(colorPair) {
             </svg>
         </button>
     `;
-    
+
     colorReplacementsContainer.appendChild(colorPairElement);
-    
+
     // Add event listeners to the new elements
     const sourceColorInput = colorPairElement.querySelector('.source-color');
     const targetColorInput = colorPairElement.querySelector('.target-color');
     const removeBtn = colorPairElement.querySelector('.remove-color-btn');
-    
-    sourceColorInput.addEventListener('input', () => {
+
+    const debouncedSourceUpdate = debounce(() => {
         updateColorPair(colorPair.id, 'source', sourceColorInput.value);
-    });
-    
-    targetColorInput.addEventListener('input', () => {
+        historyManager.addState(createImageState(modifiedImage, colorPairs)); // Optional: track state only on stop
+    }, 100); // 300ms after stop
+
+    sourceColorInput.addEventListener('input', debouncedSourceUpdate);
+
+
+    const debouncedTargetUpdate = debounce(() => {
         updateColorPair(colorPair.id, 'target', targetColorInput.value);
-    });
-    
+        historyManager.addState(createImageState(modifiedImage, colorPairs));
+    }, 100);
+
+    targetColorInput.addEventListener('input', debouncedTargetUpdate);
+
     sourceColorInput.addEventListener('change', () => {
         updateImage();
         // Add new state to history after color change
         historyManager.addState(createImageState(modifiedImage, colorPairs));
     });
-    
+
     targetColorInput.addEventListener('change', () => {
         updateImage();
         // Add new state to history after color change
         historyManager.addState(createImageState(modifiedImage, colorPairs));
     });
-    
+
     removeBtn.addEventListener('click', () => {
         removeColorPair(colorPair.id);
     });
     const sourceColorText = colorPairElement.querySelector('.source-color-text');
-const targetColorText = colorPairElement.querySelector('.target-color-text');
+    const targetColorText = colorPairElement.querySelector('.target-color-text');
 
-// Source sync
-sourceColorInput.addEventListener('input', () => {
-    sourceColorText.value = sourceColorInput.value.toUpperCase();
-});
-sourceColorText.addEventListener('input', () => {
-    const val = sourceColorText.value.trim();
-    if (/^#([0-9A-F]{3}){1,2}$/i.test(val)) {
-        sourceColorInput.value = val;
-        updateColorPair(colorPair.id, 'source', val);
-        updateImage();
-    }
-});
+    // Source sync
+    sourceColorInput.addEventListener('input', () => {
+        sourceColorText.value = sourceColorInput.value.toUpperCase();
+    });
+    sourceColorText.addEventListener('input', () => {
+        const val = sourceColorText.value.trim();
+        if (/^#([0-9A-F]{3}){1,2}$/i.test(val)) {
+            sourceColorInput.value = val;
+            updateColorPair(colorPair.id, 'source', val);
+            updateImage();
+        }
+    });
 
-// Target sync
-targetColorInput.addEventListener('input', () => {
-    targetColorText.value = targetColorInput.value.toUpperCase();
-});
-targetColorText.addEventListener('input', () => {
-    const val = targetColorText.value.trim();
-    if (/^#([0-9A-F]{3}){1,2}$/i.test(val)) {
-        targetColorInput.value = val;
-        updateColorPair(colorPair.id, 'target', val);
-        updateImage();
-    }
-});
+    // Target sync
+    targetColorInput.addEventListener('input', () => {
+        targetColorText.value = targetColorInput.value.toUpperCase();
+    });
+    targetColorText.addEventListener('input', () => {
+        const val = targetColorText.value.trim();
+        if (/^#([0-9A-F]{3}){1,2}$/i.test(val)) {
+            targetColorInput.value = val;
+            updateColorPair(colorPair.id, 'target', val);
+            updateImage();
+        }
+    });
 
 }
 
@@ -346,40 +379,40 @@ function removeColorPair(id) {
     const index = colorPairs.findIndex(pair => pair.id === id);
     if (index !== -1) {
         colorPairs.splice(index, 1);
-        
+
         // Remove from DOM
         const element = document.querySelector(`.color-pair[data-id="${id}"]`);
         if (element) {
             element.remove();
         }
-        
+
         updateImage();
-        
+
         // Add new state to history after removal
         historyManager.addState(createImageState(modifiedImage, colorPairs));
     }
 }
 
 // Update tolerance value display
-function updateToleranceValue() {
-    const value = colorToleranceSlider.value;
-    toleranceValueDisplay.textContent = value;
-    
-    // Update image with new tolerance
-    updateImage();
-    
-    // Add new state to history after significant change
-    // Throttle history addition to avoid too many states
-    clearTimeout(this.toleranceTimeout);
-    this.toleranceTimeout = setTimeout(() => {
-        historyManager.addState(createImageState(modifiedImage, colorPairs));
-    }, 500);
-}
+// function updateToleranceValue() {
+//     const value = colorToleranceSlider.value;
+//     toleranceValueDisplay.textContent = value;
+
+//     // Update image with new tolerance
+//     updateImage();
+
+//     // Add new state to history after significant change
+//     // Throttle history addition to avoid too many states
+//     clearTimeout(this.toleranceTimeout);
+//     this.toleranceTimeout = setTimeout(() => {
+//         historyManager.addState(createImageState(modifiedImage, colorPairs));
+//     }, 500);
+// }
 
 // Update the modified image with current color replacements
 function updateImage() {
-    const tolerance = parseInt(colorToleranceSlider.value, 10);
-    
+    // const tolerance = parseInt(colorToleranceSlider.value, 10);
+
     if (isSvg) {
         // For SVG, replace colors directly in the SVG structure
         const newSvg = replaceColorsInSvg(originalImage, colorPairs);
@@ -402,11 +435,11 @@ function updateImage() {
 // Handle download button click
 function handleDownload() {
     const format = downloadFormatSelect.value;
-    
+
     if (isSvg && modifiedImage) {
         // For SVG files
         const svgUrl = svgToDataUrl(modifiedImage);
-        
+
         convertSvgToFormat(svgUrl, format)
             .then(dataUrl => {
                 downloadImage(dataUrl, format, originalFile.name);
@@ -448,13 +481,13 @@ function handleRedo() {
 function applyHistoryState(state) {
     // Update color pairs
     colorPairs = JSON.parse(JSON.stringify(state.colorPairs));
-    
+
     // Rebuild color pairs UI
     colorReplacementsContainer.innerHTML = '';
     colorPairs.forEach(pair => {
         renderColorPair(pair);
     });
-    
+
     // Update image
     if (state.isSvg) {
         // For SVG states
@@ -479,11 +512,11 @@ function handleReset() {
     } else {
         modifiedImage.src = originalImage.src;
     }
-    
+
     // Reset color pairs
     colorPairs = [];
     colorReplacementsContainer.innerHTML = '';
-    
+
     if (isSvg) {
         // For SVGs, re-extract colors
         const colors = extractColorsFromSvg(originalImage);
@@ -498,11 +531,11 @@ function handleReset() {
         // For raster images, add a default color pair
         addColorPair();
     }
-    
+
     // Reset tolerance
     colorToleranceSlider.value = 20;
     toleranceValueDisplay.textContent = '20';
-    
+
     // Add new state to history
     historyManager.addState(createImageState(modifiedImage, colorPairs));
 }
@@ -516,12 +549,12 @@ function goBackToUpload() {
     isSvg = false;
     colorPairs = [];
     historyManager.reset();
-    
+
     // Clear UI
     originalImageHolder.innerHTML = '';
     modifiedImageHolder.innerHTML = '';
     colorReplacementsContainer.innerHTML = '';
-    
+
     // Show upload, hide editor
     uploadContainer.style.display = 'block';
     editorContainer.style.display = 'none';
