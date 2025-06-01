@@ -43,19 +43,13 @@ function setActiveNavLink() {
 
   navLinks.forEach(link => {
     link.classList.remove('active');
+    const linkPath = link.getAttribute('href');
 
-    const linkDataNav = link.getAttribute('data-nav');
+    // Normalize slashes for comparison
+    const normalize = str => str.replace(/\/+$/, '');
 
-    if (linkDataNav === 'home' && (currentPath === '/' || currentPath.endsWith('/index.html'))) {
+    if (normalize(currentPath) === normalize(linkPath)) {
       link.classList.add('active');
-    } else if (linkDataNav === 'blog' && currentPath.includes('/blog/')) {
-      link.classList.add('active');
-    } 
-    else if (linkDataNav === 'image-color-changer' && currentPath.includes('/blog/')) {
-      link.classList.add('active');
-    } 
-    else if (linkDataNav === 'btn-hover-effect' && currentPath.includes('/blog/')) {
-      link.classList.add('active');
-    } 
+    }
   });
 }

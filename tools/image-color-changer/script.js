@@ -124,8 +124,8 @@ function handleFiles(files) {
     const file = files[0];
 
     // Check file size
-    if (file.size > 5 * 1024 * 1024) { // 5MB limit
-        showNotification('File size exceeds 5MB limit', 'error');
+    if (file.size > 10 * 1024 * 1024) { // 5MB limit
+        showNotification('File size exceeds 10MB limit', 'error');
         return;
     }
 
@@ -421,7 +421,7 @@ function updateImage() {
         modifiedImage = newSvg;
     } else {
         // For raster images, use canvas to replace colors
-        replaceColorsInImage(originalImage, colorPairs, tolerance)
+        replaceColorsInImage(originalImage, colorPairs)
             .then(newImageData => {
                 modifiedImage.src = newImageData;
             })
