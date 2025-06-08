@@ -1,22 +1,25 @@
 /* Hero Section */
 .hero {
-  background: linear-gradient(120deg, var(--primary-color), var(--primary-dark));
+  /* background: linear-gradient(120deg, var(--primary-color), var(--primary-dark)); */
   color: white;
-  padding: var(--spacing-xxl) 0;
+  padding: 100px 0;
   text-align: center;
 }
 
 .hero h1 {
-  font-size: 2.5rem;
+  font-size: 3.5rem;
   margin-bottom: var(--spacing-md);
-  color: white;
+  color: rgb(27, 27, 27);
+  line-height: 4rem;
+  font-weight: 600;
 }
 
 .hero-text {
-  font-size: 1.25rem;
+  font-size: 1.2rem;
+  color: #64748B;
   margin-bottom: var(--spacing-xl);
   opacity: 0.9;
-  max-width: 600px;
+  max-width: 800px;
   margin-left: auto;
   margin-right: auto;
 }
@@ -29,7 +32,16 @@
 
 .tools-section h2 {
   text-align: center;
-  margin-bottom: var(--spacing-xl);
+  margin-bottom: 10px;
+  font-size: 2rem;
+  font-weight: 600;
+}
+
+.tools-section .tool-subheadline {
+  text-align: center;
+  font-size: 18px;
+  margin-bottom: 50px;
+  color: #64748B;
 }
 
 .tools-grid {
@@ -41,7 +53,7 @@
 
 .tool-card {
   background: white;
-  border-radius: var(--border-radius-lg);
+  border-radius: 15px;
   padding: var(--spacing-xl);
   box-shadow: var(--shadow-md);
   transition: transform 0.3s ease, box-shadow 0.3s ease;
@@ -92,8 +104,10 @@
 }
 
 .faq-section h2 {
-  text-align: center;
-  margin-bottom: var(--spacing-xl);
+   text-align: center;
+  margin-bottom: 10px;
+  font-size: 2rem;
+  font-weight: 600;
 }
 
 .faq-grid {
@@ -131,18 +145,21 @@
 }
 
 .cta-content {
-  max-width: 600px;
+  max-width: 800px;
   margin: 0 auto;
 }
 
 .cta-content h2 {
-  color: white;
-  margin-bottom: var(--spacing-md);
+   text-align: center;
+  margin-bottom: 20px;
+  font-size: 2.8rem;
+  font-weight: 600;
 }
 
 .cta-content p {
   margin-bottom: var(--spacing-xl);
   opacity: 0.9;
+  font-size: 20px;
 }
 
 /* Buttons */
@@ -158,6 +175,7 @@
 .btn-primary {
   background-color: var(--primary-color);
   color: white;
+  border-radius: 100px;
 }
 
 .btn-primary:hover {
@@ -166,8 +184,12 @@
 }
 
 .btn-secondary {
+  border: 2px solid;
   background-color: rgba(255, 255, 255, 0.1);
-  color: white;
+  border-radius: 100px;
+  color: #475569;
+  border-color: #E2E8F0;
+  background-color: #FFFFFF;
 }
 
 .btn-secondary:hover {
