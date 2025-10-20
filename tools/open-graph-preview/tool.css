@@ -1,0 +1,44 @@
+/* Open Graph Preview (CTL) */
+/* Namespace: ctl- */
+
+.ctl-fieldset { border: 1px solid var(--line); border-radius: var(--radius-card); padding: var(--space-5); }
+.ctl-legend { font-weight: 700; padding: 0 var(--space-2); }
+.ctl-row { margin-top: var(--space-4); }
+.ctl-label { display:block; font-weight:600; margin-bottom: 6px; }
+.ctl-codebox { font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; }
+
+.ctl-grid-2 { display:grid; gap: var(--space-4); grid-template-columns: 1fr; }
+@media (min-width: 860px){ .ctl-grid-2{ grid-template-columns: 1fr 1fr; } }
+
+.ctl-grid-3 { display:grid; gap: var(--space-4); grid-template-columns: 1fr; }
+@media (min-width: 980px){ .ctl-grid-3{ grid-template-columns: 1fr 1fr 1fr; } }
+
+.ctl-count { margin-top: 6px; font-size: 12px; color: var(--ink-500); }
+.ctl-count--warn { color: var(--warn); }
+.ctl-count--ok { color: var(--success); }
+
+.ctl-image-status { margin-top: 6px; font-size: 12px; color: var(--ink-500); }
+.ctl-image-status--error { color: var(--danger); }
+.ctl-image-status--ok { color: var(--success); }
+
+.ctl-section-title { margin: 0 0 var(--space-3); font-size: 18px; }
+.ctl-list { padding-left: 18px; }
+.ctl-list li { margin: 6px 0; }
+.ctl-ok { color: var(--success); font-weight: 600; }
+.ctl-warn { color: var(--warn); font-weight: 600; }
+.ctl-err { color: var(--danger); font-weight: 600; }
+
+.ctl-card--preview { padding: 0; overflow: hidden; }
+.ctl-preview-image { background:#f3f4f6; aspect-ratio: 1.91 / 1; display:block; overflow:hidden; }
+.ctl-preview-image img { width: 100%; height: 100%; object-fit: cover; display:block; }
+.ctl-preview-body { padding: 12px 14px; }
+.ctl-preview-title { margin: 4px 0 6px; font-size: 16px; line-height: 1.3; }
+.ctl-preview-desc { margin: 0; color: var(--ink-700); font-size: 14px; }
+.ctl-preview-domain { font-size: 12px; color: var(--ink-500); text-transform: uppercase; letter-spacing: .02em; }
+
+#ctl-generated { max-height: 340px; }
+
+.ctl-btn[disabled] { opacity:.6; cursor:not-allowed; }
+
+/* Small polish */
+#ctl-generated:focus-visible { outline: none; box-shadow: var(--focus-ring); }

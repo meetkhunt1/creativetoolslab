@@ -1,0 +1,161 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+
+  <title>Freelancer Retainer Tracker – Free Income & Hours Tracker | CreativeToolsLab</title>
+  <meta name="description" content="Track your client retainers, hours worked, and earnings with ease. Manage freelance income directly in your browser." />
+  <link rel="icon" href="/favicon.ico" />
+  <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+
+  <!-- Global + tool CSS -->
+  <link rel="stylesheet" href="/assets/css/base.css" />
+  <link rel="stylesheet" href="./tool.css" />
+
+  <!-- Open Graph -->
+  <meta property="og:title" content="Freelancer Retainer Tracker – CreativeToolsLab">
+  <meta property="og:description" content="Track retainers, hours, and payments directly in your browser. No upload or login required.">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://creativetoolslab.com/tools/freelancer-retainer-tracker/">
+  <meta property="og:image" content="https://creativetoolslab.com/og/freelancer-retainer-tracker.png">
+  <link rel="canonical" href="https://creativetoolslab.com/tools/freelancer-retainer-tracker/">
+</head>
+<body>
+  <header id="ctl-global-header"></header>
+
+  <main class="ctl-container ctl-grid ctl-grid--2 u-mt-5">
+    <section class="ctl-hero" style="grid-column:1/-1">
+      <h1>Freelancer Retainer Tracker</h1>
+      <p>Track clients, retainers, hours, and payment status. Export CSV and save locally — all in your browser.</p>
+    </section>
+
+    <section class="ctl-card" id="app" aria-labelledby="ctl-form-title">
+      <!-- Summary Bar -->
+      <div class="ctl-summary" role="region" aria-label="Totals summary">
+        <div class="ctl-summary__item">
+          <div class="ctl-summary__label">Monthly Total</div>
+          <div class="ctl-summary__value" id="ctl-total-monthly">₹0</div>
+        </div>
+        <div class="ctl-summary__item">
+          <div class="ctl-summary__label">Pending Payments</div>
+          <div class="ctl-summary__value" id="ctl-total-pending">₹0</div>
+        </div>
+        <div class="ctl-summary__item">
+          <div class="ctl-summary__label">Avg. Hourly Rate</div>
+          <div class="ctl-summary__value" id="ctl-avg-rate">—</div>
+        </div>
+      </div>
+
+      <!-- Add / Edit Form -->
+      <form id="ctl-form" class="u-mt-4" autocomplete="off">
+        <h2 id="ctl-form-title" class="u-mt-0">Add Client Retainer</h2>
+        <div class="ctl-form-grid">
+          <div>
+            <label for="ctl-client" class="ctl-label">Client Name</label>
+            <input id="ctl-client" class="ctl-in" type="text" required placeholder="e.g., Acme Inc." />
+          </div>
+          <div>
+            <label for="ctl-retainer" class="ctl-label">Retainer Amount (per month)</label>
+            <input id="ctl-retainer" class="ctl-in" type="number" min="0" step="0.01" required placeholder="e.g., 1500" />
+          </div>
+          <div>
+            <label for="ctl-hours" class="ctl-label">Hours Worked</label>
+            <input id="ctl-hours" class="ctl-in" type="number" min="0" step="0.1" placeholder="e.g., 12.5" />
+          </div>
+          <div>
+            <label for="ctl-rate" class="ctl-label">Hourly Rate (optional)</label>
+            <input id="ctl-rate" class="ctl-in" type="number" min="0" step="0.01" placeholder="e.g., 50" />
+          </div>
+          <div>
+            <label for="ctl-status" class="ctl-label">Payment Status</label>
+            <select id="ctl-status" class="ctl-in" aria-label="Payment Status">
+              <option value="Pending">Pending</option>
+              <option value="Paid">Paid</option>
+            </select>
+          </div>
+          <div>
+            <label for="ctl-active" class="ctl-label">Active</label>
+            <select id="ctl-active" class="ctl-in" aria-label="Active state">
+              <option value="true" selected>Yes</option>
+              <option value="false">No</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="u-flex u-items-center u-gap-3 u-mt-4">
+          <button type="submit" class="ctl-btn" id="ctl-add-btn">Add Client Entry</button>
+          <button type="button" class="ctl-btn ctl-btn--ghost" id="ctl-export-btn" aria-label="Export table to CSV">Export CSV</button>
+          <div class="u-flex u-gap-3" style="margin-left:auto">
+            <label for="ctl-filter" class="ctl-label sr-only">Filter</label>
+            <select id="ctl-filter" class="ctl-in" aria-label="Filter table rows">
+              <option value="all">All</option>
+              <option value="active">Active Only</option>
+              <option value="pending">Pending Only</option>
+            </select>
+          </div>
+        </div>
+        <p class="ctl-help u-mt-3">Tip: Double-click a cell in the table to edit. Press <kbd>Enter</kbd> to save or <kbd>Esc</kbd> to cancel.</p>
+      </form>
+
+      <!-- Table -->
+      <div class="u-mt-5" role="region" aria-label="Clients table">
+        <table class="ctl-table" id="ctl-table">
+          <thead>
+            <tr>
+              <th scope="col">Client</th>
+              <th scope="col">Retainer</th>
+              <th scope="col">Hours</th>
+              <th scope="col">Hourly Rate</th>
+              <th scope="col">Payment</th>
+              <th scope="col">Active</th>
+              <th scope="col" class="ctl-col-actions">Actions</th>
+            </tr>
+          </thead>
+          <tbody id="ctl-tbody" aria-live="polite" aria-relevant="all"></tbody>
+        </table>
+      </div>
+
+      <div id="ctl-status-region" role="status" aria-live="polite" class="ctl-visually-muted u-mt-3"></div>
+    </section>
+
+    <aside class="ctl-aside">
+      <div class="ctl-badge">Tip</div>
+      <p>Related: <a href="/tools/">Explore more tools</a></p>
+      <div class="ads-slot" id="ads-1" aria-label="Advertisement"></div>
+    </aside>
+
+    <section class="ctl-card" style="grid-column:1/-1">
+      <h2>How it works</h2>
+      <p>Enter your client retainer details and track hours and payment status. Your data is saved locally in your browser using localStorage — nothing is uploaded or shared.</p>
+      <ul class="u-mt-3">
+        <li>Add rows with the form above.</li>
+        <li>Double-click table cells to edit inline.</li>
+        <li>Filter for Active or Pending only.</li>
+        <li>Export the visible table as CSV anytime.</li>
+      </ul>
+
+      <h2 class="u-mt-5">FAQs</h2>
+      <details>
+        <summary>Is this tool free?</summary>
+        <p>Yes. It runs entirely in your browser — no login, no backend.</p>
+      </details>
+      <details>
+        <summary>What does “Monthly Total” include?</summary>
+        <p>It sums the Retainer Amount for all visible rows. “Pending Payments” sums retainers with status set to Pending. “Avg. Hourly Rate” averages the provided hourly rates across visible rows.</p>
+      </details>
+      <p class="ctl-help u-mt-3">Also try: <a href="/tools/invoice-generator/">Invoice Generator</a> and <a href="/tools/utm-builder/">UTM Builder</a>.</p>
+    </section>
+  </main>
+
+  <footer id="ctl-global-footer"></footer>
+
+  <!-- Global + tool JS (ES modules) -->
+  <script src="/assets/js/ctl.js" type="module"></script>
+  <script src="/assets/js/ui.js" type="module"></script>
+  <script src="./tool.js" type="module"></script>
+  <script src="/assets/js/layout.js" type="module"></script>
+  <script>document.getElementById('year').textContent = new Date().getFullYear();</script>
+</body>
+</html>

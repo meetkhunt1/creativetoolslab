@@ -1,9 +1,0 @@
-@import url('./base/base.css');
-
-@import url('./base/variables.css');
-@import url('./base/typography.css');
-
-@import url('./layout/header.css');
-@import url('./layout/footer.css');
-
-/* You can conditionally load page styles only when needed */

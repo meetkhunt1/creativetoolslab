@@ -1,0 +1,56 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8"/><meta name="viewport" content="width=device-width,initial-scale=1"/>
+  <title>All Tools – CreativeToolsLab</title>
+  <meta name="description" content="All free, frontend-only tools by CreativeToolsLab."/>
+  <link rel="icon" href="/favicon.ico"/>
+  <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/assets/css/base.css"/>
+  <link rel="canonical" href="https://creativetoolslab.com/tools/">
+</head>
+<body>
+<header id="ctl-global-header"></header>
+
+<main class="ctl-container u-mt-5">
+  <section class="ctl-hero">
+    <h1>All Tools</h1>
+    <p>Search and open any tool. Everything runs in your browser.</p>
+    <input class="ctl-in u-mt-4" id="q" placeholder="Search tools… (e.g., json, cron, invoice)"/>
+  </section>
+
+  <section class="ctl-grid u-mt-5" id="list">
+    <!-- List items -->
+    <a class="ctl-card" data-k="cron expression schedule" href="/tools/cron-expression-generator/"><strong>Cron Expression Generator</strong><br><span class="ctl-help">Build & explain cron</span></a>
+    <a class="ctl-card" data-k="open graph og preview social" href="/tools/open-graph-preview/"><strong>Open Graph Preview</strong><br><span class="ctl-help">Social link previews</span></a>
+    <a class="ctl-card" data-k="json formatter validator pretty print" href="/tools/json-formatter-validator/"><strong>JSON Formatter & Validator</strong><br><span class="ctl-help">Pretty-print & validate</span></a>
+    <a class="ctl-card" data-k="image webp converter compress" href="/tools/image-to-webp/"><strong>Image → WebP Converter</strong><br><span class="ctl-help">Compress in-browser</span></a>
+    <a class="ctl-card" data-k="password generator secure" href="/tools/password-generator/"><strong>Password Generator</strong><br><span class="ctl-help">Strong passwords</span></a>
+    <a class="ctl-card" data-k="invoice generator pdf" href="/tools/invoice-generator/"><strong>Invoice Generator (PDF)</strong><br><span class="ctl-help">Create & download</span></a>
+    <a class="ctl-card" data-k="accessibility wcag checker" href="/tools/accessibility-checker-lite/"><strong>Accessibility Checker (Lite)</strong><br><span class="ctl-help">WCAG hints</span></a>
+    <a class="ctl-card" data-k="freelancer retainer tracker hours" href="/tools/freelancer-retainer-tracker/"><strong>Freelancer Retainer Tracker</strong><br><span class="ctl-help">Track monthly hours</span></a>
+    <a class="ctl-card" data-k="csv json convert" href="/tools/csv-to-json/"><strong>CSV → JSON Converter</strong><br><span class="ctl-help">Convert locally</span></a>
+    <a class="ctl-card" data-k="utm builder campaign" href="/tools/utm-builder/"><strong>UTM Builder</strong><br><span class="ctl-help">Track campaign links</span></a>
+  </section>
+</main>
+
+<footer id="ctl-global-footer"></footer>
+
+<script>
+  document.getElementById('year').textContent = new Date().getFullYear();
+  const q = document.getElementById('q');
+  const list = document.getElementById('list').children;
+  q.addEventListener('input', e=>{
+    const v = e.target.value.toLowerCase();
+    [...list].forEach(card=>{
+      const text = (card.textContent + ' ' + (card.dataset.k||'')).toLowerCase();
+      card.style.display = text.includes(v) ? '' : 'none';
+    });
+  });
+</script>
+ <script src="/assets/js/ctl.js" type="module"></script>
+  <script src="/assets/js/ui.js" type="module"></script>
+  <script src="/assets/js/layout.js" type="module"></script>
+</body>
+</html>

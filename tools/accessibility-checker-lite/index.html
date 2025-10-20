@@ -1,0 +1,106 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+
+  <title>Accessibility Checker Lite – Free A11y Scan | CreativeToolsLab</title>
+  <meta name="description" content="Quickly check color contrast, headings, alt text, and landmarks in your HTML. Lightweight, client-side accessibility checks for devs." />
+  <link rel="icon" href="/favicon.ico" />
+  <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+
+  <!-- Global & tool CSS -->
+  <link rel="stylesheet" href="/assets/css/base.css" />
+  <link rel="stylesheet" href="./tool.css" />
+
+  <!-- Open Graph -->
+  <meta property="og:title" content="Accessibility Checker Lite – CreativeToolsLab">
+  <meta property="og:description" content="Check color contrast, headings, alt text, and landmarks in your HTML. Client-side and fast.">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://creativetoolslab.com/tools/accessibility-checker-lite/">
+  <meta property="og:image" content="https://creativetoolslab.com/og/accessibility-checker-lite.png">
+
+  <!-- Canonical -->
+  <link rel="canonical" href="https://creativetoolslab.com/tools/accessibility-checker-lite/">
+</head>
+<body>
+  <header id="ctl-global-header"></header>
+
+  <main class="ctl-container ctl-grid ctl-grid--2 u-mt-5">
+    <section class="ctl-hero" style="grid-column:1/-1">
+      <h1>Accessibility Checker Lite</h1>
+      <p>Paste your HTML and scan for common a11y issues: contrast, headings, alt text, links, forms, and landmarks.</p>
+    </section>
+
+    <!-- Left: Input & Actions -->
+    <section class="ctl-card" id="app" aria-labelledby="ctl-app-title">
+      <h2 id="ctl-app-title" class="u-mt-0">Input & actions</h2>
+      <form id="ctl-form" class="ctl-form" novalidate>
+        <label for="ctl-html" class="ctl-label">HTML input</label>
+        <textarea id="ctl-html" class="ctl-in ctl-in--mono" rows="14" placeholder="Paste your HTML here..." aria-describedby="ctl-html-help"></textarea>
+        <p id="ctl-html-help" class="ctl-help">Tip: Use “Load sample” for a quick demo. Press Enter to analyze. Esc clears messages.</p>
+
+        <div class="u-flex u-items-center u-gap-3 u-mt-4">
+          <button id="ctl-analyze" class="ctl-btn" type="submit" aria-label="Analyze pasted HTML">Analyze</button>
+          <button id="ctl-clear" class="ctl-btn ctl-btn--ghost" type="button">Clear</button>
+          <button id="ctl-sample" class="ctl-btn ctl-btn--ghost" type="button">Load sample</button>
+        </div>
+
+        <div class="u-flex u-items-center u-gap-3 u-mt-4">
+          <button id="ctl-copy-json" class="ctl-btn ctl-btn--ghost" type="button">Copy report JSON</button>
+          <button id="ctl-download-json" class="ctl-btn ctl-btn--ghost" type="button">Download report.json</button>
+          <button id="ctl-copy-template" class="ctl-btn ctl-btn--ghost" type="button" aria-label="Copy fixed HTML skeleton">Copy fixed template</button>
+        </div>
+      </form>
+
+      <div class="u-mt-4">
+        <h3 class="u-mt-0">Summary</h3>
+        <div id="ctl-summary" class="ctl-summary" role="status" aria-live="polite">
+          <span class="ctl-chip" data-chip="pass">Passed: <strong id="ctl-pass">0</strong></span>
+          <span class="ctl-chip" data-chip="warn">Warnings: <strong id="ctl-warn">0</strong></span>
+          <span class="ctl-chip" data-chip="error">Errors: <strong id="ctl-error">0</strong></span>
+        </div>
+        <p id="ctl-message" class="ctl-help" role="alert" hidden></p>
+      </div>
+    </section>
+
+    <!-- Right: Results -->
+    <aside class="ctl-aside">
+      <div class="ctl-badge">Tip</div>
+      <p>Related: <a href="/tools/json-formatter-validator/">JSON Formatter</a>, <a href="/tools/open-graph-preview/">Open Graph Preview</a></p>
+      <div class="ads-slot" id="ads-1" aria-label="Advertisement"></div>
+    </aside>
+
+    <section class="ctl-card" aria-labelledby="ctl-results-title">
+      <h2 id="ctl-results-title" class="u-mt-0">Issues</h2>
+      <ul id="ctl-issues" class="ctl-issues" aria-live="polite" aria-busy="false"></ul>
+      <pre id="ctl-report-preview" class="ctl-code u-mt-3" aria-label="Report JSON preview" tabindex="0">{}</pre>
+    </section>
+
+    <section class="ctl-card" style="grid-column:1/-1">
+      <h2>How it works</h2>
+      <p>This lightweight checker parses your HTML in-browser and runs best-effort checks: WCAG AA text contrast (vs assumed white if unknown), heading outline, image <code>alt</code>, generic link text, form labeling, and recommended landmarks (<code>&lt;main&gt;</code>, <code>&lt;nav&gt;</code>, <code>&lt;header&gt;</code>, <code>&lt;footer&gt;</code>). No data leaves your device.</p>
+
+      <h2>FAQs</h2>
+      <details>
+        <summary>Is this a full audit?</summary>
+        <p>No—this is an MVP pre-check. For production, pair it with manual testing, keyboard review, and screen reader checks.</p>
+      </details>
+      <details>
+        <summary>What contrast does it use?</summary>
+        <p>WCAG 2.1 AA threshold for normal text (4.5:1). It compares inline colors (or simple attributes) against white when a background can’t be determined.</p>
+      </details>
+    </section>
+  </main>
+
+  <footer id="ctl-global-footer"></footer>
+
+  <!-- Global & tool JS (ES modules) -->
+  <script src="/assets/js/ctl.js" type="module"></script>
+  <script src="/assets/js/ui.js" type="module"></script>
+  <script src="/assets/js/layout.js" type="module"></script>
+  <script src="./tool.js" type="module"></script>
+  <script>document.getElementById('year').textContent = new Date().getFullYear();</script>
+</body>
+</html>

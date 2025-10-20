@@ -1,0 +1,158 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+
+  <title>Cron Expression Generator – Free Online CRON Builder | CreativeToolsLab</title>
+  <meta name="description" content="Generate, validate, and understand CRON expressions easily. Perfect for developers scheduling automated tasks." />
+  <link rel="icon" href="/favicon.ico" />
+  <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+
+  <!-- Global CSS + Tool CSS -->
+  <link rel="stylesheet" href="/assets/css/base.css" />
+  <link rel="stylesheet" href="./tool.css" />
+
+  <!-- Open Graph -->
+  <meta property="og:title" content="Cron Expression Generator – CreativeToolsLab">
+  <meta property="og:description" content="Generate, validate, and understand CRON expressions easily. Perfect for developers scheduling automated tasks.">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://creativetoolslab.com/tools/cron-expression-generator/">
+  <meta property="og:image" content="https://creativetoolslab.com/og/cron-expression-generator.png">
+
+  <!-- Canonical -->
+  <link rel="canonical" href="https://creativetoolslab.com/tools/cron-expression-generator/">
+</head>
+<body>
+  <header id="ctl-global-header"></header>
+
+  <main class="ctl-container ctl-grid ctl-grid--2 u-mt-5">
+    <section class="ctl-hero" style="grid-column:1/-1">
+      <h1 class="ctl-hero__title">Cron Expression Generator</h1>
+      <p class="ctl-hero__sub">Build and parse standard 5-field CRON strings with instant validation and next run preview.</p>
+    </section>
+
+    <!-- TOOL UI -->
+    <section class="ctl-card" id="app" aria-labelledby="ctl-app-title">
+      <h2 id="ctl-app-title" class="u-mt-0">Builder</h2>
+
+      <!-- Builder grid -->
+      <form class="ctl-grid ctl-builder" id="ctl-form" novalidate>
+        <!-- Minute -->
+        <div class="ctl-field">
+          <label for="ctl-min">Minute</label>
+          <input id="ctl-min" class="ctl-in" name="minute" type="text" inputmode="text" placeholder="e.g. 0,15,30,45 or */5" aria-describedby="ctl-min-help" />
+          <div id="ctl-min-help" class="ctl-help">0–59. Use <code>*</code> for any, lists (e.g. <code>10,20</code>), ranges (<code>10-30</code>), and steps (<code>*/5</code>).</div>
+        </div>
+
+        <!-- Hour -->
+        <div class="ctl-field">
+          <label for="ctl-hour">Hour</label>
+          <input id="ctl-hour" class="ctl-in" name="hour" type="text" placeholder="e.g. 0 or 9-17/2" aria-describedby="ctl-hour-help" />
+          <div id="ctl-hour-help" class="ctl-help">0–23. Supports lists, ranges, and steps. <code>*</code> means every hour.</div>
+        </div>
+
+        <!-- Day of month -->
+        <div class="ctl-field">
+          <label for="ctl-dom">Day</label>
+          <input id="ctl-dom" class="ctl-in" name="day" type="text" placeholder="e.g. * or 1,15" aria-describedby="ctl-dom-help" />
+          <div id="ctl-dom-help" class="ctl-help">1–31. Use <code>*</code> for any day.</div>
+        </div>
+
+        <!-- Month -->
+        <div class="ctl-field">
+          <label for="ctl-mon">Month</label>
+          <input id="ctl-mon" class="ctl-in" name="month" type="text" placeholder="e.g. * or JAN,MAR,JUL or 1-12" aria-describedby="ctl-mon-help" />
+          <div id="ctl-mon-help" class="ctl-help">1–12 or names <code>JAN…DEC</code>. Lists, ranges, steps allowed.</div>
+        </div>
+
+        <!-- Weekday -->
+        <div class="ctl-field">
+          <label for="ctl-dow">Weekday</label>
+          <input id="ctl-dow" class="ctl-in" name="weekday" type="text" placeholder="e.g. * or MON-FRI or 0,6" aria-describedby="ctl-dow-help" />
+          <div id="ctl-dow-help" class="ctl-help">0–6 (Sun=0) or names <code>SUN…SAT</code>. Use <code>MON-FRI</code> for weekdays.</div>
+        </div>
+      </form>
+
+      <!-- Result row -->
+      <div class="u-mt-4 ctl-result-row u-flex u-items-center u-gap-3">
+        <div class="ctl-result">
+          <label for="ctl-cron-out" class="ctl-result__label">CRON</label>
+          <div class="ctl-code" id="ctl-cron-out" role="textbox" aria-label="Generated CRON expression" tabindex="0">* * * * *</div>
+        </div>
+        <button class="ctl-btn" id="ctl-copy" aria-label="Copy CRON to clipboard">Copy</button>
+        <button class="ctl-btn ctl-btn--ghost" id="ctl-reset" aria-label="Reset fields to every value">Reset</button>
+      </div>
+
+      <hr class="ctl-sep u-mt-4" />
+
+      <!-- Parser -->
+      <h2 class="u-mt-4">Parser</h2>
+      <div class="ctl-parser u-mt-3">
+        <label for="ctl-cron-in">Paste a CRON (5 fields)</label>
+        <input id="ctl-cron-in" class="ctl-in" type="text" placeholder="e.g. 0 9 * * MON-FRI" aria-describedby="ctl-parse-help ctl-parse-status" />
+        <div id="ctl-parse-help" class="ctl-help">We support standard 5-field UNIX style: <code>minute hour day month weekday</code>.</div>
+        <div id="ctl-parse-status" class="ctl-validate" aria-live="polite"></div>
+      </div>
+
+      <!-- Preview -->
+      <div class="u-mt-4">
+        <h3 class="u-mt-3">Next run times (local)</h3>
+        <ol id="ctl-next" class="ctl-next" aria-live="polite"></ol>
+      </div>
+
+      <!-- Examples -->
+      <div class="u-mt-4 ctl-examples">
+        <details>
+          <summary>Quick examples</summary>
+          <ul>
+            <li><button class="ctl-chip" data-example="0 0 * * *" aria-label="Use example: every day at midnight">Daily at midnight <code>0 0 * * *</code></button></li>
+            <li><button class="ctl-chip" data-example="*/15 * * * *" aria-label="Use example: every 15 minutes">Every 15 minutes <code>*/15 * * * *</code></button></li>
+            <li><button class="ctl-chip" data-example="0 9 * * MON-FRI" aria-label="Use example: weekdays at 9am">Weekdays 09:00 <code>0 9 * * MON-FRI</code></button></li>
+          </ul>
+        </details>
+      </div>
+    </section>
+
+    <!-- Aside -->
+    <aside class="ctl-aside" aria-label="Related and Ads">
+      <div class="ctl-badge">Tip</div>
+      <p>Related: <a href="/tools/utm-builder/">UTM Builder</a> · <a href="/tools/csv-to-json/">CSV to JSON</a></p>
+      <div class="ads-slot" id="ads-1" aria-label="Advertisement"></div>
+    </aside>
+
+    <!-- How it works / FAQs -->
+    <section class="ctl-card" style="grid-column:1/-1">
+      <h2>How it works</h2>
+      <p>
+        Enter values for <em>minute</em>, <em>hour</em>, <em>day</em>, <em>month</em>, and <em>weekday</em> to build a standard
+        5-field CRON string. We validate as you type, and simulate the next run times on your device (approximate, client-side only).
+        You can also paste a CRON into the parser to see a human-readable breakdown and update the builder fields instantly.
+      </p>
+
+      <h2>FAQs</h2>
+      <details>
+        <summary>Is this tool free and private?</summary>
+        <p>Yes. It runs entirely in your browser—no uploads or servers involved.</p>
+      </details>
+      <details>
+        <summary>Which CRON format is supported?</summary>
+        <p>
+          Standard UNIX 5-field CRON: <code>minute hour day month weekday</code>. We support lists, ranges, and steps (e.g. <code>*/5</code>),
+          plus month and weekday names (<code>JAN…DEC</code>, <code>SUN…SAT</code>). Advanced descriptors like <code>L</code>, <code>#</code>, or <code>?</code> are not supported.
+        </p>
+      </details>
+    </section>
+  </main>
+
+  <footer id="ctl-global-footer"></footer>
+
+  <!-- Global JS + Tool JS -->
+  <script src="/assets/js/ctl.js" type="module"></script>
+  <script src="/assets/js/ui.js" type="module"></script>
+  <script src="./tool.js" type="module"></script>
+  <script src="/assets/js/layout.js" type="module"></script>
+  <script>document.getElementById('year').textContent = new Date().getFullYear();</script>
+</body>
+</html>

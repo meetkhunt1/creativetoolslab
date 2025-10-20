@@ -1,0 +1,130 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+
+  <title>Image to WebP – Free Online Converter | CreativeToolsLab</title>
+  <meta name="description" content="Convert PNG/JPEG to WebP in your browser. Adjust quality, resize, and download optimized images. No upload, no tracking." />
+  <link rel="icon" href="/favicon.ico" />
+  <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="/assets/css/base.css" />
+  <link rel="stylesheet" href="./tool.css" />
+
+  <!-- Open Graph -->
+  <meta property="og:title" content="Image to WebP – CreativeToolsLab">
+  <meta property="og:description" content="Convert PNG/JPEG to WebP in your browser. Adjust quality, resize, and download optimized images.">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://creativetoolslab.com/tools/image-to-webp/">
+  <meta property="og:image" content="https://creativetoolslab.com/og/image-to-webp.png">
+  <link rel="canonical" href="https://creativetoolslab.com/tools/image-to-webp/">
+</head>
+
+<body>
+  <header id="ctl-global-header"></header>
+
+  <main class="ctl-container ctl-grid ctl-grid--2 u-mt-5">
+    <section class="ctl-hero" style="grid-column:1/-1">
+      <h1>Image to WebP</h1>
+      <p>Convert PNG/JPEG to lightweight WebP — adjust quality, optionally resize, and download. 100% client-side.</p>
+    </section>
+
+    <section class="ctl-card" id="app" aria-labelledby="settings-title">
+      <!-- Settings -->
+      <h2 id="settings-title" class="u-mt-0">Settings</h2>
+
+      <div class="ctl-grid" style="grid-template-columns: 1fr">
+        <!-- Drop zone + picker -->
+        <div class="ctl-uploader">
+          <div id="ctl-drop"
+               class="ctl-drop"
+               tabindex="0"
+               role="button"
+               aria-label="Upload images by dragging here or press Enter to choose files">
+            <strong>Drag &amp; drop</strong> PNG or JPEG files here
+            <span class="ctl-help">or press Enter to browse</span>
+          </div>
+          <input id="ctl-file" class="ctl-visually-hidden" type="file" accept=".png,.jpg,.jpeg" multiple aria-label="Choose images" />
+        </div>
+
+        <!-- Controls -->
+        <div class="ctl-controls u-mt-4" role="group" aria-labelledby="ctl-controls-title">
+          <h3 id="ctl-controls-title" class="u-mt-0">Conversion options (apply to batch)</h3>
+
+          <label class="u-mt-3" for="ctl-quality">Quality: <span id="ctl-quality-val">80</span></label>
+          <input id="ctl-quality" class="ctl-in" type="range" min="0" max="100" value="80" step="1" aria-describedby="ctl-quality-tip" />
+          <div class="ctl-help" id="ctl-quality-tip">Tip: Try <strong>70–85</strong> for a good balance.</div>
+
+          <fieldset class="u-mt-4" aria-describedby="ctl-size-help">
+            <legend>Resize (optional)</legend>
+            <div class="u-flex u-items-center u-gap-3 u-mt-3">
+              <label for="ctl-width" style="min-width:60px">Width</label>
+              <input id="ctl-width" class="ctl-in" type="number" inputmode="numeric" placeholder="e.g., 1400" min="1" aria-label="Resize width in pixels" />
+            </div>
+            <div class="u-flex u-items-center u-gap-3 u-mt-3">
+              <label for="ctl-height" style="min-width:60px">Height</label>
+              <input id="ctl-height" class="ctl-in" type="number" inputmode="numeric" placeholder="Auto if locked" min="1" aria-label="Resize height in pixels" />
+            </div>
+            <div class="u-flex u-items-center u-gap-3 u-mt-3">
+              <input id="ctl-lock" type="checkbox" checked aria-label="Lock aspect ratio" />
+              <label for="ctl-lock">Lock aspect ratio</label>
+            </div>
+            <div class="ctl-help" id="ctl-size-help">Leave width/height blank to keep original size.</div>
+          </fieldset>
+
+          <div class="u-mt-4">
+            <input id="ctl-alpha" type="checkbox" checked aria-label="PNG transparency note" />
+            <label for="ctl-alpha">Transparent background</label>
+            <div class="ctl-help">PNG → WebP preserves alpha (transparency). No extra steps needed.</div>
+          </div>
+
+          <div class="u-flex u-gap-3 u-mt-4">
+            <button id="ctl-download-all" class="ctl-btn" type="button">Download all (one-by-one)</button>
+            <button id="ctl-clear" class="ctl-btn ctl-btn--ghost" type="button">Clear</button>
+          </div>
+
+          <div id="ctl-status" class="ctl-help u-mt-3" role="status" aria-live="polite"></div>
+          <div id="ctl-error" class="ctl-help u-mt-3" role="alert" aria-live="assertive" style="display:none;color:var(--danger)"></div>
+        </div>
+      </div>
+
+      <hr class="u-mt-5" />
+
+      <!-- Previews -->
+      <h2 class="u-mt-4">Previews</h2>
+      <div id="ctl-list" class="ctl-list" aria-live="polite" aria-label="Converted images list"></div>
+    </section>
+
+    <aside class="ctl-aside">
+      <div class="ctl-badge">Tip</div>
+      <p>Related: <a href="/tools/json-formatter-validator/">JSON Formatter</a> · <a href="/tools/open-graph-preview/">Open Graph Preview</a></p>
+      <div class="ads-slot" id="ads-1" aria-label="Advertisement"></div>
+    </aside>
+
+    <section class="ctl-card" style="grid-column:1/-1">
+      <h2>How it works</h2>
+      <p>This tool converts PNG and JPEG images to modern <strong>WebP</strong> directly in your browser using HTML Canvas. No uploads, no tracking. Adjust quality, optionally resize, and download optimized images with preserved transparency.</p>
+
+      <h2>FAQs</h2>
+      <details>
+        <summary>Is this really client-side only?</summary>
+        <p>Yes. Everything runs in your browser. Files never leave your device.</p>
+      </details>
+      <details>
+        <summary>Does WebP support transparency?</summary>
+        <p>Yes. WebP supports alpha, so PNG transparency is preserved automatically.</p>
+      </details>
+    </section>
+  </main>
+
+  <footer id="ctl-global-footer"></footer>
+
+  <script src="/assets/js/ctl.js" type="module"></script>
+  <script src="/assets/js/ui.js" type="module"></script>
+  <script src="./tool.js" type="module"></script>
+  <script src="/assets/js/layout.js" type="module"></script>
+  <script>document.getElementById('year').textContent = new Date().getFullYear();</script>
+</body>
+</html>

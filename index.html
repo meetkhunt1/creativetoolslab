@@ -1,105 +1,60 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description"
-        content="Collection of essential tools for developers and designers - Color changers, custom CSS generators, and more">
-    <meta name="keywords" content="developer tools, design tools, CSS generator, web development">
-    <title>DevTools Hub | Essential Tools for Developers</title>
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width,initial-scale=1"/>
+  <title>CreativeToolsLab – Free, Fast, Frontend-Only Web Tools</title>
+  <meta name="description" content="A growing hub of free, fast, frontend-only tools for developers and small businesses. No logins. No uploads. Everything runs in your browser."/>
+  <link rel="icon" href="/favicon.ico"/>
+  <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/assets/css/base.css"/>
+  <link rel="canonical" href="https://creativetoolslab.com/">
+  <meta property="og:title" content="CreativeToolsLab – Free, Fast Tools">
+  <meta property="og:description" content="Free tools that run 100% in your browser. Developer utilities and small-business helpers.">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://creativetoolslab.com/">
+  <meta property="og:image" content="https://creativetoolslab.com/og/home.png">
+  <link rel="preload" href="/assets/css/header.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+<noscript><link rel="stylesheet" href="/assets/css/header.css"></noscript>
 
-    <link rel="stylesheet" href="assets/css/pages/home.css">
-    <link rel="stylesheet" href="./assets/css/main.css">
-    
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&display=swap">
-    <title>Page Title | Tools For Designer</title>
-    <meta name="description" content="Short, clear description of this page.">
-    <meta name="keywords" content="design tools, web design, free tools, online tools">
-    <meta name="robots" content="index, follow">
-    <link rel="canonical" href="https://creativetoolslab.com/" />
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<link rel="preload" href="/assets/css/footer.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+<noscript><link rel="stylesheet" href="/assets/css/footer.css"></noscript>
+
+<!-- Place layout.js early so injection happens ASAP -->
+<script type="module" src="/assets/js/layout.js" defer></script>
+
 </head>
-
 <body>
-    <!-- Header -->
-    <header id="header"></header>
+  <header id="ctl-global-header"></header>
 
-    <!-- Main Content -->
-    <main class="main-content">
-        <section class="hero">
-            <div class="container">
-                <h1>Essential Tools for Developers<br><span>Where they Can Make</span></h1>
-                <p class="hero-text">Streamline your development workflow with our collection of powerful tools Streamline your development workflow with our collection of powerful tools</p>
-                <div class="cta-buttons">
-                    <a href="#tools" class="btn btn-primary">Explore Tools</a>
-                    <a href="blog/index.html" class="btn btn-secondary">Read Our Blog</a>
-                </div>
-            </div>
-        </section>
+  <main class="ctl-container u-mt-5">
+    <section class="ctl-hero">
+      <h1>Free, fast tools for builders</h1>
+      <p>Frontend-only utilities for developers and small businesses. No data leaves your browser.</p>
+    </section>
 
-        <section id="tools" class="tools-section">
-            <div class="page-container">
-                <h2>Explore Our Tools</h2>
-                <p class="tool-subheadline">Lorem, ipsum dolor sit amet consectetur adipisicing elit. Possimus, vitae.</p>
-                <div class="tools-grid">
-                    <div class="tool-card">
-                        <div class="tool-icon" style="background-color: #FFE5E5">🎨</div>
-                        <div class="tool-content">
-                            <h3>Image Color Changer</h3>
-                            <p>Transform image colors with our intuitive color manipulation tool.</p>
-                            <a href="./tools/image-color-changer/" class="tool-link">Try Tool →</a>
-                        </div>
-                    </div>
-                    <div class="tool-card">
-                        <div class="tool-icon" style="background-color: #E5FFE5">🎯</div>
-                        <div class="tool-content">
-                            <h3>Custom CSS Buttons</h3>
-                            <p>Generate beautiful, customizable CSS buttons in seconds.</p>
-                            <a href="/tools/button-hover-effects/" class="tool-link">Try Tool →</a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
+    <section class="ctl-grid" style="margin-top:24px">
+      <!-- Featured cards -->
+      <a class="ctl-card" href="/tools/cron-expression-generator/"><strong>Cron Expression Generator</strong><br><span class="ctl-help">Build & explain cron in seconds</span></a>
+      <a class="ctl-card" href="/tools/open-graph-preview/"><strong>Open Graph Preview</strong><br><span class="ctl-help">See how your links render on socials</span></a>
+      <a class="ctl-card" href="/tools/json-formatter-validator/"><strong>JSON Formatter & Validator</strong><br><span class="ctl-help">Pretty-print, validate, copy</span></a>
+      <a class="ctl-card" href="/tools/image-to-webp/"><strong>Image → WebP Converter</strong><br><span class="ctl-help">Compress in-browser</span></a>
+      <a class="ctl-card" href="/tools/password-generator/"><strong>Password Generator</strong><br><span class="ctl-help">Strong, configurable passwords</span></a>
+      <a class="ctl-card" href="/tools/invoice-generator/"><strong>Invoice Generator (PDF)</strong><br><span class="ctl-help">Create and download clean invoices</span></a>
+    </section>
 
-        <section class="faq-section">
-            <div class="container">
-                <h2>Frequently Asked Questions</h2>
-                <div class="faq-grid">
-                    <details class="faq-item">
-                        <summary>Are these tools free to use?</summary>
-                        <p>Yes, all our tools are completely free for both personal and commercial projects.</p>
-                    </details>
-                    <details class="faq-item">
-                        <summary>Can I use the generated code in my projects?</summary>
-                        <p>Absolutely! All code generated by our tools is free to use in any project without
-                            attribution.</p>
-                    </details>
-                    <details class="faq-item">
-                        <summary>Do I need to create an account?</summary>
-                        <p>No account needed! Our tools are instantly accessible to everyone.</p>
-                    </details>
-                </div>
-            </div>
-        </section>
+    <div class="u-mt-5">
+      <a class="ctl-btn" href="/tools/">Browse all tools</a>
+    </div>
+  </main>
 
-        <section class="cta-section">
-            <div class="container">
-                <div class="cta-content">
-                    <h2>Start Creating Today</h2>
-                    <p>Join thousands of developers who use our tools to streamline their workflow</p>
-                    <a href="#tools" class="btn btn-primary">Explore All Tools</a>
-                </div>
-            </div>
-        </section>
-    </main>
+  <footer id="ctl-global-footer"></footer>
+  <script>document.getElementById('year').textContent = new Date().getFullYear();</script>
 
-    <!-- Footer -->
-    <footer id="footer"></footer>
+  <script src="/assets/js/ctl.js" type="module"></script>
+  <script src="/assets/js/ui.js" type="module"></script>
+  <script src="/assets/js/layout.js" type="module"></script>
 
-    <!-- Scripts -->
-    <script src="assets/js/main.js"></script>
 </body>
-
 </html>

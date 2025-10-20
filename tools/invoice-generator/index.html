@@ -1,0 +1,276 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+
+  <title>Invoice Generator – Free Online PDF Invoices | CreativeToolsLab</title>
+  <meta name="description" content="Create clean, professional invoices in your browser. Add items, tax, and discounts, then print or save to PDF. No upload needed." />
+  <link rel="icon" href="/favicon.ico" />
+
+  <!-- Fonts (as per global template) -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+
+  <!-- Global + tool CSS -->
+  <link rel="stylesheet" href="/assets/css/base.css" />
+  <link rel="stylesheet" href="./tool.css" />
+
+  <!-- Open Graph -->
+  <meta property="og:title" content="Invoice Generator – CreativeToolsLab">
+  <meta property="og:description" content="Create clean, professional invoices in your browser. Add items, tax, and discounts, then print or save to PDF. No upload needed.">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://creativetoolslab.com/tools/invoice-generator/">
+  <meta property="og:image" content="https://creativetoolslab.com/og/invoice-generator.png">
+
+  <!-- Canonical -->
+  <link rel="canonical" href="https://creativetoolslab.com/tools/invoice-generator/">
+</head>
+<body>
+  <header id="ctl-global-header"></header>
+
+  <main class="ctl-container ctl-grid ctl-grid--2 u-mt-5">
+    <section class="ctl-hero" style="grid-column:1/-1">
+      <h1 class="ctl-title">Invoice Generator</h1>
+      <p>Create professional invoices, apply tax & discounts, and print or save to PDF — all in your browser.</p>
+    </section>
+
+    <!-- App Card -->
+    <section class="ctl-card" id="app" aria-labelledby="invoice-heading">
+      <h2 id="invoice-heading" class="u-sr-only">Invoice builder</h2>
+
+      <!-- Heading type toggle -->
+      <div class="u-flex u-items-center u-gap-3 u-mt-3">
+        <label class="u-flex u-items-center u-gap-3">
+          <input type="checkbox" id="ctl-proforma-toggle" class="ctl-in" aria-label="Toggle Proforma invoice" />
+          <span>Duplicate as <strong>Proforma</strong> (changes heading)</span>
+        </label>
+
+        <label class="u-flex u-items-center u-gap-3" style="margin-left:auto">
+          <input type="checkbox" id="ctl-cents-toggle" class="ctl-in" aria-label="Show or hide cents" />
+          <span>Show cents</span>
+        </label>
+      </div>
+
+      <!-- Header / Meta -->
+      <div class="ctl-grid u-mt-4" style="grid-template-columns:1fr; gap: var(--space-5);">
+        <div class="ctl-grid" style="grid-template-columns:1fr 1fr; gap: var(--space-5);">
+          <!-- Your Business -->
+          <fieldset class="ctl-fieldset">
+            <legend class="ctl-legend">Your business</legend>
+
+            <label class="ctl-label" for="ctl-biz-name">Business name</label>
+            <input id="ctl-biz-name" class="ctl-in" type="text" placeholder="CreatoLive Pvt. Ltd." />
+
+            <label class="ctl-label u-mt-3" for="ctl-biz-address">Address</label>
+            <textarea id="ctl-biz-address" class="ctl-in" rows="3" placeholder="Street, City, State, ZIP"></textarea>
+
+            <div class="ctl-grid u-mt-3" style="grid-template-columns:1fr 1fr; gap: var(--space-3);">
+              <div>
+                <label class="ctl-label" for="ctl-biz-email">Email</label>
+                <input id="ctl-biz-email" class="ctl-in" type="email" placeholder="you@company.com" />
+              </div>
+              <div>
+                <label class="ctl-label" for="ctl-biz-phone">Phone</label>
+                <input id="ctl-biz-phone" class="ctl-in" type="tel" placeholder="+91 90000 00000" />
+              </div>
+            </div>
+
+            <div class="ctl-grid u-mt-3" style="grid-template-columns:1fr 1fr; gap: var(--space-3);">
+              <div>
+                <label class="ctl-label" for="ctl-logo-url">Logo URL (optional)</label>
+                <input id="ctl-logo-url" class="ctl-in" type="url" placeholder="https://example.com/logo.png" />
+              </div>
+              <div>
+                <label class="ctl-label" for="ctl-logo-file">Or upload logo</label>
+                <input id="ctl-logo-file" class="ctl-in" type="file" accept="image/*" />
+              </div>
+            </div>
+
+            <div class="ctl-logo-box u-mt-3" aria-label="Logo preview">
+              <canvas id="ctl-logo-canvas" width="320" height="160" aria-hidden="true"></canvas>
+              <div class="ctl-help">Logo is contained to fit this box.</div>
+            </div>
+          </fieldset>
+
+          <!-- Client -->
+          <fieldset class="ctl-fieldset">
+            <legend class="ctl-legend">Client</legend>
+
+            <label class="ctl-label" for="ctl-client-name">Client name</label>
+            <input id="ctl-client-name" class="ctl-in" type="text" placeholder="Client Company" />
+
+            <label class="ctl-label u-mt-3" for="ctl-client-address">Address</label>
+            <textarea id="ctl-client-address" class="ctl-in" rows="3" placeholder="Street, City, State, ZIP"></textarea>
+
+            <div class="ctl-grid u-mt-3" style="grid-template-columns:1fr 1fr; gap: var(--space-3);">
+              <div>
+                <label class="ctl-label" for="ctl-client-email">Email</label>
+                <input id="ctl-client-email" class="ctl-in" type="email" placeholder="client@example.com" />
+              </div>
+              <div>
+                <label class="ctl-label" for="ctl-currency">Currency</label>
+                <select id="ctl-currency" class="ctl-in" aria-label="Currency">
+                  <option value="USD">USD</option>
+                  <option value="EUR">EUR</option>
+                  <option value="INR" selected>INR</option>
+                  <option value="GBP">GBP</option>
+                  <option value="AUD">AUD</option>
+                  <option value="CAD">CAD</option>
+                  <option value="JPY">JPY</option>
+                </select>
+              </div>
+            </div>
+          </fieldset>
+        </div>
+
+        <!-- Invoice Meta -->
+        <fieldset class="ctl-fieldset">
+          <legend class="ctl-legend">Invoice meta</legend>
+
+          <div class="ctl-grid" style="grid-template-columns:repeat(5,minmax(0,1fr)); gap: var(--space-3);">
+            <div>
+              <label class="ctl-label" for="ctl-invoice-no">Invoice #</label>
+              <input id="ctl-invoice-no" class="ctl-in" type="text" inputmode="numeric" placeholder="1001" />
+              <div class="ctl-help">Auto-increment remembered.</div>
+            </div>
+            <div>
+              <label class="ctl-label" for="ctl-issue-date">Issue date</label>
+              <input id="ctl-issue-date" class="ctl-in" type="date" />
+            </div>
+            <div>
+              <label class="ctl-label" for="ctl-due-date">Due date</label>
+              <input id="ctl-due-date" class="ctl-in" type="date" />
+            </div>
+            <div>
+              <label class="ctl-label" for="ctl-tax-mode">Tax mode</label>
+              <select id="ctl-tax-mode" class="ctl-in" aria-label="Tax calculation mode">
+                <option value="after-discount" selected>Tax after discount</option>
+                <option value="before-discount">Tax before discount</option>
+              </select>
+            </div>
+            <div>
+              <label class="ctl-label" for="ctl-tax-preset">Tax preset</label>
+              <select id="ctl-tax-preset" class="ctl-in" aria-label="Quick tax percentage">
+                <option value="">—</option>
+                <option value="0">0%</option>
+                <option value="5">5%</option>
+                <option value="12">12%</option>
+                <option value="18">18%</option>
+                <option value="20">20%</option>
+              </select>
+              <div class="ctl-help">Applies to new lines.</div>
+            </div>
+          </div>
+
+          <label class="ctl-label u-mt-3" for="ctl-notes">Notes / Terms</label>
+          <textarea id="ctl-notes" class="ctl-in" rows="3" placeholder="Payment due in 7 days. Thank you!"></textarea>
+        </fieldset>
+      </div>
+
+      <!-- Items + Summary -->
+      <div class="ctl-grid u-mt-4" style="grid-template-columns:minmax(0,1fr) 320px; gap: var(--space-5);">
+        <!-- Items table -->
+        <div>
+          <div class="u-flex u-items-center u-gap-3 u-mt-3">
+            <h3 class="u-m-0">Line items</h3>
+            <button id="ctl-add-row" class="ctl-btn" type="button">Add row</button>
+            <button id="ctl-dup-row" class="ctl-btn ctl-btn--ghost" type="button" aria-label="Duplicate selected row">Duplicate row</button>
+            <button id="ctl-del-row" class="ctl-btn ctl-btn--ghost" type="button" aria-label="Delete selected row">Delete row</button>
+          </div>
+
+          <div class="ctl-table-wrap u-mt-3" tabindex="0" aria-label="Invoice items table">
+            <table class="ctl-table" id="ctl-items-table">
+              <thead>
+                <tr>
+                  <th scope="col" style="width:28px">#</th>
+                  <th scope="col">Item</th>
+                  <th scope="col" style="width:90px">Qty</th>
+                  <th scope="col" style="width:120px">Price</th>
+                  <th scope="col" style="width:110px">Tax %</th>
+                  <th scope="col" style="width:130px">Discount %</th>
+                  <th scope="col" style="width:140px">Line total</th>
+                  <th scope="col" style="width:36px" aria-label="Select row">Sel</th>
+                </tr>
+              </thead>
+              <tbody id="ctl-items-body">
+                <!-- Rows injected by JS -->
+              </tbody>
+            </table>
+          </div>
+          <div class="ctl-help u-mt-3">Tip: Use Tab/Shift+Tab to move cells. Arrow keys work inside inputs.</div>
+        </div>
+
+        <!-- Summary -->
+        <aside class="ctl-summary" aria-label="Invoice summary">
+          <div class="ctl-card ctl-summary__card">
+            <div class="u-flex u-items-center u-gap-3">
+              <h3 class="u-m-0" id="ctl-invoice-heading-print">Invoice</h3>
+              <span class="ctl-pill" id="ctl-currency-pill" aria-live="polite">INR</span>
+            </div>
+            <dl class="ctl-sum u-mt-3">
+              <div class="ctl-sum__row">
+                <dt>Subtotal</dt><dd id="ctl-subtotal">—</dd>
+              </div>
+              <div class="ctl-sum__row">
+                <dt>Total discount</dt><dd id="ctl-total-discount">—</dd>
+              </div>
+              <div class="ctl-sum__row">
+                <dt>Total tax</dt><dd id="ctl-total-tax">—</dd>
+              </div>
+              <div class="ctl-sum__row ctl-sum__row--grand">
+                <dt>Grand total</dt><dd id="ctl-grand-total">—</dd>
+              </div>
+            </dl>
+
+            <div class="u-flex u-gap-3 u-mt-4">
+              <button id="ctl-print" class="ctl-btn" type="button" aria-label="Download as PDF">Download PDF</button>
+              <button id="ctl-copy-link" class="ctl-btn ctl-btn--ghost" type="button">Copy link with data</button>
+            </div>
+            <div class="u-flex u-gap-3 u-mt-3">
+              <button id="ctl-save" class="ctl-btn ctl-btn--ghost" type="button">Save last invoice</button>
+              <button id="ctl-reset" class="ctl-btn ctl-btn--ghost" type="button">Reset form</button>
+            </div>
+          </div>
+        </aside>
+      </div>
+
+      <!-- Live region for small status messages -->
+      <div id="ctl-status" role="status" aria-live="polite" class="u-sr-only"></div>
+    </section>
+
+    <!-- Aside -->
+    <aside class="ctl-aside">
+      <div class="ctl-badge">Tip</div>
+      <p>Related: <a href="/tools/utm-builder/">UTM Builder</a>, <a href="/tools/json-formatter-validator/">JSON Formatter &amp; Validator</a></p>
+      <div class="ads-slot" id="ads-1" aria-label="Advertisement"></div>
+    </aside>
+
+    <!-- How it works / FAQs -->
+    <section class="ctl-card" style="grid-column:1/-1">
+      <h2>How it works</h2>
+      <p>Fill your business and client details, add line items, and set tax/discount per item. Choose your currency, toggle cents, and pick whether tax applies before or after discount. Click <strong>Download PDF</strong> to use your browser’s “Save as PDF”. Use <strong>Copy link with data</strong> to share a pre-filled invoice link. Your last invoice can be saved locally — no data is uploaded.</p>
+
+      <h2>FAQs</h2>
+      <details>
+        <summary>Is this tool free?</summary>
+        <p>Yes. It runs entirely in your browser — no signup, no uploads.</p>
+      </details>
+      <details>
+        <summary>Can I change currency formatting?</summary>
+        <p>Yes. Pick a currency in the Client section; all totals update instantly using accurate locale formatting.</p>
+      </details>
+    </section>
+  </main>
+
+  <footer id="ctl-global-footer"></footer>
+
+  <!-- Global JS + tool JS (ES modules) -->
+  <script src="/assets/js/ctl.js" type="module"></script>
+  <script src="/assets/js/ui.js" type="module"></script>
+  <script src="./tool.js" type="module"></script>
+  <script src="/assets/js/layout.js" type="module"></script>
+  <script>document.getElementById('year').textContent = new Date().getFullYear();</script>
+</body>
+</html>

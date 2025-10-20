@@ -1,0 +1,211 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>CSV to JSON – Free Online Converter | CreativeToolsLab</title>
+  <meta name="description" content="Convert CSV to JSON in your browser. Auto-detect delimiter, choose header mode, and download clean JSON — no upload required." />
+  <link rel="icon" href="/favicon.ico" />
+  <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/assets/css/base.css" />
+  <link rel="stylesheet" href="./tool.css" />
+
+  <!-- Open Graph -->
+  <meta property="og:title" content="CSV to JSON – CreativeToolsLab">
+  <meta property="og:description" content="Convert CSV to JSON in your browser. Auto-detect delimiter, choose header mode, and download clean JSON — no upload required.">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://creativetoolslab.com/tools/csv-to-json/">
+  <meta property="og:image" content="https://creativetoolslab.com/og/csv-to-json.png">
+  <link rel="canonical" href="https://creativetoolslab.com/tools/csv-to-json/">
+</head>
+<body>
+  <header id="ctl-global-header"></header>
+
+  <main class="ctl-container ctl-grid ctl-grid--2 u-mt-5">
+    <section class="ctl-hero" style="grid-column:1/-1">
+      <h1>CSV to JSON</h1>
+      <p>Fast, private CSV → JSON conversion with auto-delimiter detection. Runs 100% in your browser.</p>
+    </section>
+
+    <!-- TOOL UI -->
+    <section class="ctl-card" id="app" aria-labelledby="ctl-app-title">
+      <h2 id="ctl-app-title" class="u-mt-0">Converter</h2>
+
+      <div class="ctl-grid" style="grid-template-columns:minmax(0,1fr);gap:var(--space-5)">
+        <!-- Left column: inputs & options -->
+        <div class="ctl-grid" style="gap:var(--space-5)">
+          <!-- Drag & drop + file input -->
+          <div>
+            <label for="ctl-file" class="ctl-sr">Upload CSV/TSV file</label>
+            <div id="ctl-drop" class="ctl-drop" tabindex="0" role="button" aria-label="Drag and drop CSV here or press Enter to choose a file">
+              <div>
+                <strong>Drop CSV/TSV here</strong><br />
+                <small>.csv, .tsv, .txt • Max few MB (client-side only)</small>
+              </div>
+              <button class="ctl-btn ctl-btn--ghost" type="button" id="ctl-choose">Choose file</button>
+            </div>
+            <input id="ctl-file" type="file" accept=".csv,.tsv,.txt,text/csv,text/tab-separated-values" hidden />
+            <p class="ctl-help">Tip: You can also paste CSV into the textarea below.</p>
+          </div>
+
+          <!-- Paste textarea -->
+          <div>
+            <label for="ctl-input" class="ctl-label">Paste CSV</label>
+            <textarea id="ctl-input" class="ctl-in ctl-in--mono" rows="10" placeholder="name,age,city
+Amit,29,Surat
+Riya,31,Ahmedabad"></textarea>
+            <div class="u-flex u-items-center u-gap-3 u-mt-3">
+              <label for="ctl-samples" class="ctl-label">Sample</label>
+              <select id="ctl-samples" class="ctl-in" style="max-width:260px">
+                <option value="">— Load sample (optional) —</option>
+                <option value="people">People (comma)</option>
+                <option value="products">Products (tab)</option>
+              </select>
+              <button id="ctl-load-sample" class="ctl-btn ctl-btn--ghost" type="button">Load</button>
+            </div>
+          </div>
+
+          <!-- Options -->
+          <fieldset class="ctl-fieldset">
+            <legend>Parsing options</legend>
+
+            <div class="ctl-grid ctl-grid--options">
+              <div>
+                <label for="ctl-delim" class="ctl-label">Delimiter</label>
+                <select id="ctl-delim" class="ctl-in">
+                  <option value="auto" selected>Auto ( , ; tab | )</option>
+                  <option value=",">Comma (,)</option>
+                  <option value=";">Semicolon (;)</option>
+                  <option value="\\t">Tab (\\t)</option>
+                  <option value="|">Pipe (|)</option>
+                </select>
+                <p class="ctl-help">Auto counts separators in first lines.</p>
+              </div>
+
+              <div>
+                <label for="ctl-quote" class="ctl-label">Quote character</label>
+                <select id="ctl-quote" class="ctl-in">
+                  <option value='"' selected>" (double quote)</option>
+                  <option value="'">' (single quote)</option>
+                </select>
+              </div>
+
+              <div>
+                <label for="ctl-header" class="ctl-label">Header row</label>
+                <select id="ctl-header" class="ctl-in">
+                  <option value="on" selected>First row is headers</option>
+                  <option value="off">No headers (use indexes)</option>
+                </select>
+              </div>
+
+              <div>
+                <label for="ctl-trim" class="ctl-label">Trim whitespace</label>
+                <select id="ctl-trim" class="ctl-in">
+                  <option value="on" selected>On</option>
+                  <option value="off">Off</option>
+                </select>
+              </div>
+
+              <div>
+                <label for="ctl-empty-null" class="ctl-label">Empty cells → null</label>
+                <select id="ctl-empty-null" class="ctl-in">
+                  <option value="on">On</option>
+                  <option value="off" selected>Off</option>
+                </select>
+              </div>
+
+              <div>
+                <label for="ctl-numberify" class="ctl-label">Preserve number types</label>
+                <select id="ctl-numberify" class="ctl-in">
+                  <option value="on">On</option>
+                  <option value="off" selected>Off</option>
+                </select>
+              </div>
+
+              <div>
+                <label for="ctl-sanitize" class="ctl-label">Sanitize column names</label>
+                <select id="ctl-sanitize" class="ctl-in">
+                  <option value="off" selected>Off</option>
+                  <option value="snake">snake_case</option>
+                </select>
+              </div>
+
+              <div>
+                <label for="ctl-outmode" class="ctl-label">Output mode</label>
+                <select id="ctl-outmode" class="ctl-in">
+                  <option value="objects" selected>Array of Objects</option>
+                  <option value="arrays">Array of Arrays</option>
+                </select>
+              </div>
+
+              <div>
+                <label for="ctl-rowlimit" class="ctl-label">Row limit (preview)</label>
+                <input id="ctl-rowlimit" class="ctl-in" type="number" min="1" step="1" placeholder="e.g. 100" />
+              </div>
+
+              <div>
+                <label for="ctl-pretty" class="ctl-label">JSON formatting</label>
+                <select id="ctl-pretty" class="ctl-in">
+                  <option value="min">Minified</option>
+                  <option value="2" selected>Pretty (2 spaces)</option>
+                  <option value="4">Pretty (4 spaces)</option>
+                </select>
+              </div>
+            </div>
+          </fieldset>
+
+          <div class="u-flex u-gap-3 u-items-center">
+            <button id="ctl-validate" class="ctl-btn" type="button">Validate</button>
+            <button id="ctl-copy" class="ctl-btn ctl-btn--ghost" type="button">Copy JSON</button>
+            <button id="ctl-download" class="ctl-btn ctl-btn--ghost" type="button">Download JSON</button>
+            <button id="ctl-reset" class="ctl-btn ctl-btn--ghost" type="button">Reset</button>
+          </div>
+
+          <div id="ctl-status" role="status" aria-live="polite" class="ctl-status u-mt-3"></div>
+          <div id="ctl-error" role="alert" class="ctl-error" aria-live="assertive" hidden></div>
+        </div>
+
+        <!-- Right column: output -->
+        <div>
+          <label for="ctl-output" class="ctl-label">JSON Output</label>
+          <pre id="ctl-output" class="ctl-code" tabindex="0" aria-label="JSON output" style="min-height:340px;white-space:pre-wrap"></pre>
+
+          <div class="ctl-summary u-mt-3" aria-live="polite">
+            <span id="ctl-summary-text">—</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <aside class="ctl-aside">
+      <div class="ctl-badge">Tip</div>
+      <p>Related: <a href="/tools/json-formatter-validator/">JSON Formatter &amp; Validator</a> • <a href="/tools/utm-builder/">UTM Builder</a></p>
+      <div class="ads-slot" id="ads-1" aria-label="Advertisement"></div>
+    </aside>
+
+    <section class="ctl-card" style="grid-column:1/-1">
+      <h2>How it works</h2>
+      <p>Paste CSV or drop a file. The tool detects the delimiter (comma, semicolon, tab or pipe), handles quoted fields (with escapes like <code>""</code>), and converts to JSON in your browser. Choose headers on/off, trim, cast numbers, and pick array-of-objects or array-of-arrays output. Nothing is uploaded.</p>
+
+      <h2>FAQs</h2>
+      <details>
+        <summary>Is this free and private?</summary>
+        <p>Yes. It runs entirely on your device — no servers, no uploads.</p>
+      </details>
+      <details>
+        <summary>How are numbers handled?</summary>
+        <p>Enable “Preserve number types” to auto-cast integers/floats. Turn it off to keep values as strings.</p>
+      </details>
+    </section>
+  </main>
+
+  <footer id="ctl-global-footer"></footer>
+
+  <script src="/assets/js/ctl.js" type="module"></script>
+  <script src="/assets/js/ui.js" type="module"></script>
+  <script src="/assets/js/layout.js" type="module"></script>
+  <script src="./tool.js" type="module"></script>
+  <script>document.getElementById('year').textContent = new Date().getFullYear();</script>
+</body>
+</html>

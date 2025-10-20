@@ -1,0 +1,67 @@
+<link rel="stylesheet" href="/assets/css/footer.css" />
+
+<div class="ctl-footer" role="contentinfo">
+  <div class="ctl-container ctl-footer__grid">
+    <!-- Brand / CTA -->
+    <section class="ctl-footer__brand">
+      <a href="/" class="ctl-footer__logo" aria-label="CreativeToolsLab Home">CreativeToolsLab</a>
+      <p class="ctl-footer__tagline">Handy, privacy-friendly tools for makers and marketers.</p>
+      <a class="ctl-footer__cta" href="/tools/">Get started</a>
+
+      
+    </section>
+
+    <!-- Columns -->
+    <details class="ctl-footcol" open>
+      <summary class="ctl-footcol__title">Learn more</summary>
+      <ul class="ctl-footcol__list">
+        <li><a href="/tools/">All tools</a></li>
+        <li><a href="/blog/">Blog</a></li>
+        <li><a href="/about/">About</a></li>
+        <li><a href="/privacy/">Privacy</a></li>
+      </ul>
+    </details>
+
+    <details class="ctl-footcol" open>
+      <summary class="ctl-footcol__title">Popular tools</summary>
+      <ul class="ctl-footcol__list">
+        <li><a href="/tools/json-formatter-validator/">JSON Formatter & Validator</a></li>
+        <li><a href="/tools/csv-to-json/">CSV to JSON</a></li>
+        <li><a href="/tools/utm-builder/">UTM Builder</a></li>
+        <li><a href="/tools/image-to-webp/">Image to WebP</a></li>
+      </ul>
+    </details>
+
+    <details class="ctl-footcol" open>
+      <summary class="ctl-footcol__title">Support</summary>
+      <ul class="ctl-footcol__list">
+        <li><a href="/privacy/">Privacy & cookies</a></li>
+        <li><a href="/sitemap.xml">Sitemap</a></li>
+        <li><a href="mailto:hello@creativetoolslab.com">Contact</a></li>
+      </ul>
+    </details>
+
+    <details class="ctl-footcol" open>
+      <summary class="ctl-footcol__title">Company</summary>
+      <ul class="ctl-footcol__list">
+        <li><a href="/about/">Our mission</a></li>
+        <li><a href="/blog/">Updates</a></li>
+        <li><a href="/tools/">Changelog</a></li>
+      </ul>
+    </details>
+  </div>
+
+  <div class="ctl-footer__base">
+    <div class="ctl-container ctl-footer__base-inner">
+      <p class="ctl-copy">© <span id="ctl-year"></span> CreativeToolsLab. All rights reserved.</p>
+      <nav class="ctl-legal" aria-label="Legal">
+        <a href="/privacy/">Privacy</a><span aria-hidden="true">•</span>
+        <a href="/sitemap.xml">Sitemap</a>
+      </nav>
+    </div>
+  </div>
+
+  <script>
+    (function(){ var y=document.getElementById('ctl-year'); if(y) y.textContent=new Date().getFullYear(); })();
+  </script>
+</div>

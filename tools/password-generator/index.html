@@ -1,0 +1,184 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+
+  <title>Password Generator – Free Strong Passwords | CreativeToolsLab</title>
+  <meta name="description" content="Create secure, random passwords with custom length and rules. Copy instantly — works fully in your browser.">
+  <link rel="icon" href="/favicon.ico" />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="/assets/css/base.css" />
+  <link rel="stylesheet" href="./tool.css" />
+
+  <!-- Open Graph -->
+  <meta property="og:title" content="Password Generator – CreativeToolsLab">
+  <meta property="og:description" content="Create secure, random passwords with custom length and rules. Copy instantly — works fully in your browser.">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://creativetoolslab.com/tools/password-generator/">
+  <meta property="og:image" content="https://creativetoolslab.com/og/password-generator.png">
+  <link rel="canonical" href="https://creativetoolslab.com/tools/password-generator/">
+</head>
+<body>
+  <header id="ctl-global-header"></header>
+
+  <main class="ctl-container ctl-grid ctl-grid--2 u-mt-5">
+    <section class="ctl-hero" style="grid-column:1/-1">
+      <h1>Password Generator</h1>
+      <p>Generate strong, random passwords and passphrases — fully offline in your browser.</p>
+    </section>
+
+    <section class="ctl-card" id="app" aria-labelledby="ctl-gen-title">
+      <h2 id="ctl-gen-title" class="u-mt-0">Settings</h2>
+
+      <!-- Accessible error area -->
+      <div id="ctl-error" class="ctl-error" role="alert" aria-live="assertive" hidden></div>
+
+      <form id="ctl-form">
+        <!-- Length -->
+        <div class="ctl-row">
+          <label for="ctl-length">Length</label>
+          <div class="ctl-length-wrap">
+            <input id="ctl-length" class="ctl-in" type="range" min="8" max="128" value="16" step="1" aria-label="Password length slider">
+            <input id="ctl-length-num" class="ctl-in ctl-length-num" type="number" min="8" max="128" value="16" aria-label="Password length input">
+          </div>
+          <p class="ctl-help">Range: 8–128 characters.</p>
+        </div>
+
+        <!-- Character sets -->
+        <fieldset class="ctl-row">
+          <legend>Include character sets</legend>
+          <div class="ctl-grid ctl-opts">
+            <label class="ctl-switch">
+              <input type="checkbox" id="ctl-upper" checked aria-label="Include uppercase letters A to Z">
+              <span>A–Z</span>
+            </label>
+            <label class="ctl-switch">
+              <input type="checkbox" id="ctl-lower" checked aria-label="Include lowercase letters a to z">
+              <span>a–z</span>
+            </label>
+            <label class="ctl-switch">
+              <input type="checkbox" id="ctl-num" checked aria-label="Include numbers zero to nine">
+              <span>0–9</span>
+            </label>
+            <label class="ctl-switch">
+              <input type="checkbox" id="ctl-sym" aria-label="Include symbols">
+              <span>Symbols</span>
+            </label>
+          </div>
+        </fieldset>
+
+        <!-- Exclusions and options -->
+        <fieldset class="ctl-row">
+          <legend>Advanced options</legend>
+          <div class="ctl-grid ctl-opts">
+            <label class="ctl-switch">
+              <input type="checkbox" id="ctl-ex-sim" aria-label="Exclude similar-looking characters like i, l, 1, O, 0">
+              <span>Exclude similar (i, l, 1, O, 0)</span>
+            </label>
+            <label class="ctl-switch">
+              <input type="checkbox" id="ctl-ex-amb" aria-label="Exclude ambiguous symbols such as braces and slashes">
+              <span>Exclude ambiguous ({ } [ ] ( ) / \ ' \" ~ , ; : . &lt; &gt;)</span>
+            </label>
+            <label class="ctl-switch">
+              <input type="checkbox" id="ctl-no-repeat" aria-label="Avoid repeating characters in a password">
+              <span>Avoid repeating characters</span>
+            </label>
+          </div>
+        </fieldset>
+
+        <!-- Passphrase mode -->
+        <fieldset class="ctl-row">
+          <legend>Passphrase mode</legend>
+          <div class="ctl-grid ctl-opts">
+            <label class="ctl-switch">
+              <input type="checkbox" id="ctl-passphrase" aria-label="Enable passphrase mode">
+              <span>Generate words instead</span>
+            </label>
+            <label class="ctl-inline">
+              <span>Words</span>
+              <input id="ctl-words" class="ctl-in" type="number" min="3" max="6" value="4" aria-label="Number of words in passphrase">
+            </label>
+            <label class="ctl-inline">
+              <span>Separator</span>
+              <select id="ctl-sep" class="ctl-in" aria-label="Separator for passphrase">
+                <option value="-">-</option>
+                <option value=".">.</option>
+                <option value="_">_</option>
+                <option value=" ">(space)</option>
+                <option value="">{none}</option>
+              </select>
+            </label>
+            <label class="ctl-switch">
+              <input type="checkbox" id="ctl-title" aria-label="Title case the words">
+              <span>TitleCase</span>
+            </label>
+          </div>
+          <p class="ctl-help">Passphrase entropy ≈ words × log₂(wordlist size).</p>
+        </fieldset>
+
+        <!-- Quantity -->
+        <div class="ctl-row">
+          <label for="ctl-qty">Quantity</label>
+          <input id="ctl-qty" class="ctl-in" type="number" min="1" max="20" value="1" aria-label="How many to generate">
+          <p class="ctl-help">Generate up to 20 at once.</p>
+        </div>
+
+        <!-- Actions + strength -->
+        <div class="ctl-actions u-flex u-items-center u-gap-3">
+          <button id="ctl-generate" class="ctl-btn" type="submit">Regenerate</button>
+          <button id="ctl-clear" class="ctl-btn ctl-btn--ghost" type="button">Clear</button>
+
+          <div class="ctl-strength" aria-live="polite">
+            <div class="ctl-strength__bar" aria-hidden="true"><span id="ctl-strength-fill"></span></div>
+            <div class="ctl-strength__label">
+              <strong id="ctl-strength-text">Strength:</strong>
+              <span id="ctl-entropy">—</span>
+              <span id="ctl-strength-word" class="ctl-chip">—</span>
+            </div>
+          </div>
+        </div>
+      </form>
+
+      <!-- Output list -->
+      <div id="ctl-output" class="ctl-output u-mt-4" aria-live="polite" aria-label="Generated passwords"></div>
+
+      <details class="u-mt-4">
+        <summary>What affects strength?</summary>
+        <p>Strength (bits of entropy) increases with longer length and larger character pools. Aim for 80+ bits for important accounts.</p>
+      </details>
+    </section>
+
+    <aside class="ctl-aside">
+      <div class="ctl-badge">Tip</div>
+      <p>Related: <a href="/tools/json-formatter-validator/">JSON Formatter</a> • <a href="/tools/open-graph-preview/">Open Graph Preview</a></p>
+      <div class="ads-slot" id="ads-1" aria-label="Advertisement"></div>
+    </aside>
+
+    <section class="ctl-card" style="grid-column:1/-1">
+      <h2>How it works</h2>
+      <p>This tool builds a character pool from your selected options, guarantees at least one character from each chosen set, then shuffles the result using the Fisher–Yates algorithm. Entropy is estimated as <code>length × log₂(poolSize)</code> (or <code>words × log₂(wordList)</code> for passphrases).</p>
+      <h2>FAQs</h2>
+      <details>
+        <summary>Is this tool free and private?</summary>
+        <p>Yes. Everything runs locally in your browser — no uploads, no tracking beyond standard site analytics.</p>
+      </details>
+      <details>
+        <summary>Will you save my passwords?</summary>
+        <p>No. We never store any generated passwords. Optionally, we persist your <em>settings</em> in your browser to speed up repeated use.</p>
+      </details>
+    </section>
+  </main>
+
+  <footer id="ctl-global-footer"></footer>
+
+  <script src="/assets/js/ctl.js" type="module"></script>
+  <script src="/assets/js/ui.js" type="module"></script>
+  <script src="./tool.js" type="module"></script>
+  <script src="/assets/js/layout.js" type="module"></script>
+  <script>document.getElementById('year').textContent = new Date().getFullYear();</script>
+</body>
+</html>

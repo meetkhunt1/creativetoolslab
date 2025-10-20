@@ -1,0 +1,151 @@
+<link rel="stylesheet" href="/assets/css/header.css">
+
+<style id="ctl-header-critical">
+  /* Start hidden BEFORE external CSS loads */
+  .ctl-mega{opacity:0;visibility:hidden;pointer-events:none;}
+  #ctl-backdrop{opacity:0;visibility:hidden;}
+  #ctl-mobile-drawer{transform:translateX(100%);}
+  #ctl-mobile-drawer.is-open{ transform: translateX(0) translate3d(0,0,0); }
+  /* avoid any animation/fling before hydration */
+  .ctl-mega, #ctl-backdrop, #ctl-mobile-drawer{}
+</style>
+
+<!-- Global CTL Header (drop-in partial) -->
+<div class="ctl-header">
+  <div class="ctl-container ctl-header__inner">
+    <a class="ctl-logo" href="/" aria-label="CreativeToolsLab Home">
+      CreativeToolsLab
+    </a>
+
+    <nav class="ctl-nav" aria-label="Primary">
+      <!-- Tools (mega menu trigger) -->
+      <div class="ctl-nav__item ctl-has-mega">
+        <button class="ctl-nav__btn"
+                aria-haspopup="true"
+                aria-expanded="false"
+                aria-controls="ctl-mega-tools">
+          Tools
+        </button>
+
+        <!-- Mega menu panel -->
+        <div id="ctl-mega-tools" class="ctl-mega" role="dialog" aria-label="Tools menu" tabindex="-1">
+          <div class="ctl-container ctl-mega__inner">
+            <div class="ctl-mega__header">
+              <h3 class="ctl-mega__title">Explore Tools</h3>
+              <a class="ctl-btn ctl-btn--ghost" href="/tools/">View all</a>
+            </div>
+
+            <!-- 4-column grid of tool links (keep alphabetical) -->
+            <div class="ctl-mega__grid">
+              <a class="ctl-mega__link" href="/tools/accessibility-checker-lite/">
+                <span class="ctl-mega__icon" aria-hidden="true">🧪</span>
+                <span>Accessibility Checker Lite</span>
+              </a>
+              <a class="ctl-mega__link" href="/tools/csv-to-json/">
+                <span class="ctl-mega__icon" aria-hidden="true">↔️</span>
+                <span>CSV to JSON</span>
+              </a>
+              <a class="ctl-mega__link" href="/tools/cron-expression-generator/">
+                <span class="ctl-mega__icon" aria-hidden="true">⏱️</span>
+                <span>Cron Expression Generator</span>
+              </a>
+              <a class="ctl-mega__link" href="/tools/freelancer-retainer-tracker/">
+                <span class="ctl-mega__icon" aria-hidden="true">📅</span>
+                <span>Freelancer Retainer Tracker</span>
+              </a>
+              <a class="ctl-mega__link" href="/tools/image-to-webp/">
+                <span class="ctl-mega__icon" aria-hidden="true">🖼️</span>
+                <span>Image to WebP</span>
+              </a>
+              <a class="ctl-mega__link" href="/tools/invoice-generator/">
+                <span class="ctl-mega__icon" aria-hidden="true">🧾</span>
+                <span>Invoice Generator</span>
+              </a>
+              <a class="ctl-mega__link" href="/tools/json-formatter-validator/">
+                <span class="ctl-mega__icon" aria-hidden="true">{} </span>
+                <span>JSON Formatter & Validator</span>
+              </a>
+              <a class="ctl-mega__link" href="/tools/open-graph-preview/">
+                <span class="ctl-mega__icon" aria-hidden="true">🔗</span>
+                <span>Open Graph Preview</span>
+              </a>
+              <a class="ctl-mega__link" href="/tools/password-generator/">
+                <span class="ctl-mega__icon" aria-hidden="true">🔒</span>
+                <span>Password Generator</span>
+              </a>
+              <a class="ctl-mega__link" href="/tools/utm-builder/">
+                <span class="ctl-mega__icon" aria-hidden="true">🏷️</span>
+                <span>UTM Builder</span>
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <a class="ctl-nav__link" href="/about/">About</a>
+      <a class="ctl-nav__link" href="/blog/">Blog</a>
+    </nav>
+
+    <div class="ctl-nav__cta">
+      <!-- Optional: remove "Log in" like your reference and keep primary CTA -->
+      <a class="ctl-btn" href="/tools/">Get started</a>
+    </div>
+    <!-- Mobile hamburger (shown only on <= 900px) -->
+<button class="ctl-hamburger"
+        type="button"
+        aria-label="Open menu"
+        aria-controls="ctl-mobile-drawer"
+        aria-expanded="false">
+  <span class="ctl-hamburger__bar" aria-hidden="true"></span>
+  <span class="ctl-hamburger__bar" aria-hidden="true"></span>
+  <span class="ctl-hamburger__bar" aria-hidden="true"></span>
+</button>
+
+<!-- Mobile drawer + backdrop -->
+<div class="ctl-backdrop" id="ctl-backdrop" hidden></div>
+
+<aside class="ctl-mobile-drawer" id="ctl-mobile-drawer" aria-hidden="true" tabindex="-1">
+  <div class="ctl-mobile-drawer__head">
+    <span class="ctl-mobile-title">Menu</span>
+    <button class="ctl-drawer-close" type="button" aria-label="Close menu">
+      <span class="ctl-drawer-close__x" aria-hidden="true">×</span>
+    </button>
+  </div>
+
+  <nav class="ctl-mobile-nav" aria-label="Mobile Navigation">
+    <!-- Tools accordion -->
+    <div class="ctl-accordion">
+      <button class="ctl-accordion__btn"
+              type="button"
+              aria-controls="ctl-acc-tools"
+              aria-expanded="false">
+        <span>Tools</span>
+        <span class="ctl-accordion__chev" aria-hidden="true">▸</span>
+      </button>
+      <div class="ctl-accordion__panel" id="ctl-acc-tools" hidden>
+        <ul class="ctl-acc-list">
+          <li><a href="/tools/accessibility-checker-lite/">Accessibility Checker Lite</a></li>
+          <li><a href="/tools/csv-to-json/">CSV to JSON</a></li>
+          <li><a href="/tools/cron-expression-generator/">Cron Expression Generator</a></li>
+          <li><a href="/tools/freelancer-retainer-tracker/">Freelancer Retainer Tracker</a></li>
+          <li><a href="/tools/image-to-webp/">Image to WebP</a></li>
+          <li><a href="/tools/invoice-generator/">Invoice Generator</a></li>
+          <li><a href="/tools/json-formatter-validator/">JSON Formatter & Validator</a></li>
+          <li><a href="/tools/open-graph-preview/">Open Graph Preview</a></li>
+          <li><a href="/tools/password-generator/">Password Generator</a></li>
+          <li><a href="/tools/utm-builder/">UTM Builder</a></li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- Flat links -->
+    <a class="ctl-mobile-link" href="/about/">About</a>
+    <a class="ctl-mobile-link" href="/blog/">Blog</a>
+
+    <!-- CTA -->
+    <a class="ctl-mobile-cta" href="/tools/">Get started</a>
+  </nav>
+</aside>
+
+  </div>
+</div>

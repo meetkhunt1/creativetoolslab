@@ -1,0 +1,140 @@
+/* ===========================================================
+   CTL Global Footer
+   =========================================================== */
+.ctl-footer {
+  background: var(--surface);
+  border-top: 1px solid var(--line);
+  color: var(--ink-800);
+}
+
+/* Top grid */
+.ctl-footer__grid {
+  display: grid;
+  gap: 28px;
+  padding: 36px 0;
+  grid-template-columns: 1.2fr repeat(4, minmax(0, 1fr));
+}
+@media (max-width: 980px) {
+  .ctl-footer__grid {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+@media (max-width: 640px) {
+  .ctl-footer__grid {
+    grid-template-columns: 1fr;
+    gap: 16px;
+    padding: 24px 0;
+  }
+}
+
+/* Brand block */
+.ctl-footer__brand { padding-right: 12px; }
+.ctl-footer__logo {
+  display: inline-block;
+  font-weight: 800;
+  font-size: 1.25rem;
+  color: var(--primary);
+  text-decoration: none;
+}
+.ctl-footer__logo:hover { text-decoration: none; color: var(--primary); }
+
+.ctl-footer__tagline { margin: 8px 0 14px; color: var(--ink-700); }
+
+.ctl-footer__cta {
+  display: inline-block;
+  margin-top: 2px;
+  padding: 10px 16px;
+  background: var(--primary);
+  color: #fff;
+  border-radius: 999px;
+  font-weight: 600;
+  text-decoration: none;
+}
+.ctl-footer__cta:hover { background: var(--primary-hover); }
+
+/* Social icons */
+.ctl-footer__social { display: flex; gap: 10px; margin-top: 16px; }
+.ctl-social {
+  width: 36px; height: 36px;
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  display: inline-grid; place-items: center;
+  background: var(--card);
+  color: var(--ink-900);
+}
+.ctl-social:hover { border-color: var(--primary); }
+.ctl-social svg { width: 18px; height: 18px; fill: currentColor; }
+
+/* Columns use <details> for mobile accordion */
+.ctl-footcol {
+  border: 1px solid transparent; /* keeps layout stable */
+}
+.ctl-footcol__title {
+  list-style: none;
+  cursor: default;
+  font-weight: 700;
+  color: var(--ink-900);
+}
+.ctl-footcol__list { margin: 10px 0 0; padding: 0; list-style: none; }
+.ctl-footcol__list li + li { margin-top: 8px; }
+.ctl-footcol__list a {
+  color: var(--ink-800);
+  text-decoration: none;
+}
+.ctl-footcol__list a:hover {
+  color: var(--primary);
+  text-decoration: none;
+}
+
+/* Make details act like plain sections on desktop */
+@media (min-width: 641px) {
+  .ctl-footcol { padding-right: 12px; }
+  .ctl-footcol[open] > summary::marker,
+  .ctl-footcol > summary::marker { display: none; }
+  .ctl-footcol > summary { pointer-events: none; }
+}
+
+/* On mobile they become accordions */
+@media (max-width: 640px) {
+  .ctl-footcol {
+    border: 1px solid var(--line);
+    border-radius: 10px;
+    background: var(--card);
+  }
+  .ctl-footcol + .ctl-footcol { margin-top: 6px; }
+  .ctl-footcol > summary {
+    padding: 12px 14px;
+    border-radius: 10px;
+    cursor: pointer;
+    outline: none;
+    position: relative;
+  }
+  .ctl-footcol > summary::after {
+    content: '▾';
+    position: absolute; right: 12px; top: 50%; transform: translateY(-50%);
+    color: var(--ink-700);
+  }
+  .ctl-footcol[open] > summary::after { transform: translateY(-50%) rotate(180deg); }
+  .ctl-footcol__list { padding: 0 14px 12px; }
+}
+
+/* Bottom strip */
+.ctl-footer__base {
+  border-top: 1px solid var(--line);
+  background: var(--surface);
+}
+.ctl-footer__base-inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 14px 0;
+  color: var(--ink-700);
+  font-size: 0.95rem;
+}
+.ctl-legal { display: flex; align-items: center; gap: 10px; }
+.ctl-legal a { color: var(--ink-700); text-decoration: none; }
+.ctl-legal a:hover { color: var(--primary); }
+@media (max-width: 640px) {
+  .ctl-footer__base-inner { flex-direction: column; align-items: flex-start; }
+}

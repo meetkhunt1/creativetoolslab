@@ -1,0 +1,100 @@
+/* Password Generator – minimal custom styles. All namespaced with ctl- */
+
+#app { overflow: visible; }
+
+/* Rows, small grid for toggles */
+.ctl-row { margin-top: var(--space-5); }
+.ctl-row:first-of-type { margin-top: 0; }
+
+.ctl-opts {
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: var(--space-3);
+}
+
+.ctl-switch {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  background: var(--bg);
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  padding: 10px 12px;
+}
+.ctl-switch input { transform: translateY(1px); }
+
+.ctl-inline {
+  display: grid;
+  grid-template-columns: 1fr 180px;
+  align-items: center;
+  gap: 10px;
+}
+
+/* Length controls */
+.ctl-length-wrap {
+  display: grid;
+  grid-template-columns: 1fr 90px;
+  gap: 12px;
+}
+.ctl-length-num { text-align: center; }
+
+/* Strength meter */
+.ctl-strength {
+  display: grid;
+  grid-template-columns: 160px 1fr;
+  gap: 12px;
+  align-items: center;
+  margin-left: auto;
+}
+.ctl-strength__bar {
+  background: #e9eef5;
+  height: 10px;
+  border-radius: 999px;
+  overflow: hidden;
+  border: 1px solid var(--line);
+}
+.ctl-strength__bar > span {
+  display: block;
+  height: 100%;
+  width: 0%;
+  background: var(--primary);
+  transition: width .25s ease;
+}
+.ctl-chip {
+  display: inline-block;
+  padding: 2px 8px;
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  font-size: 12px;
+  color: var(--ink-700);
+  margin-left: 6px;
+}
+
+/* Output list */
+.ctl-output { display: grid; gap: 12px; }
+.ctl-pass {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: 10px;
+  align-items: center;
+}
+.ctl-pass input[type="text"] {
+  font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+}
+
+/* Error block */
+.ctl-error {
+  background: #fff7f7;
+  border: 1px solid #ffd1d1;
+  color: var(--ink-900);
+  border-radius: 12px;
+  padding: 10px 12px;
+  margin-bottom: var(--space-4);
+}
+
+/* Buttons block */
+.ctl-actions { margin-top: var(--space-5); }
+
+/* Responsive tweaks */
+@media (max-width: 720px) {
+  .ctl-strength { grid-template-columns: 1fr; margin-left: 0; width: 100%; }
+}

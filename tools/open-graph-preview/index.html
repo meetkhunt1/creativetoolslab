@@ -1,0 +1,190 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+
+  <title>Open Graph Preview – Free Online OG/Twitter Card Tester | CreativeToolsLab</title>
+  <meta name="description" content="Preview and validate Open Graph & Twitter Card meta tags. Paste a URL or tags, see rich previews, and copy clean HTML snippets." />
+  <link rel="icon" href="/favicon.ico" />
+  <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+
+  <!-- Global + Tool CSS -->
+  <link rel="stylesheet" href="/assets/css/base.css" />
+  <link rel="stylesheet" href="./tool.css" />
+
+  <!-- Open Graph -->
+  <meta property="og:title" content="Open Graph Preview – CreativeToolsLab">
+  <meta property="og:description" content="Preview and validate Open Graph & Twitter Card meta tags.">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://creativetoolslab.com/tools/open-graph-preview/">
+  <meta property="og:image" content="https://creativetoolslab.com/og/open-graph-preview.png">
+  <link rel="canonical" href="https://creativetoolslab.com/tools/open-graph-preview/">
+</head>
+<body>
+  <header id="ctl-global-header"></header>
+
+  <main class="ctl-container ctl-grid ctl-grid--2 u-mt-5">
+    <section class="ctl-hero" style="grid-column:1/-1">
+      <h1>Open Graph Preview</h1>
+      <p>Paste your meta tags or fill the fields to preview Facebook, X (Twitter), and LinkedIn cards. Validate and copy a clean meta block.</p>
+    </section>
+
+    <!-- TOOL UI -->
+    <section class="ctl-card" id="app">
+      <form class="ctl-form" id="ctl-form" novalidate>
+        <!-- Inputs -->
+        <fieldset class="ctl-fieldset">
+          <legend class="ctl-legend">Inputs</legend>
+
+          <div class="ctl-row">
+            <label class="ctl-label" for="ctl-url">Page URL (og:url)</label>
+            <input class="ctl-in" id="ctl-url" name="url" type="url" placeholder="https://example.com/page" inputmode="url" autocomplete="url" />
+            <p class="ctl-help">Optional: sets <code>og:url</code> and appears in previews.</p>
+          </div>
+
+          <div class="ctl-grid-2">
+            <div class="ctl-row">
+              <label class="ctl-label" for="ctl-title">Title (og:title)</label>
+              <input class="ctl-in" id="ctl-title" name="title" type="text" maxlength="200" placeholder="Enter a compelling title" />
+              <div class="ctl-count" id="ctl-title-count" aria-live="polite"></div>
+            </div>
+            <div class="ctl-row">
+              <label class="ctl-label" for="ctl-type">Preset / Type (og:type)</label>
+              <select class="ctl-in" id="ctl-type" name="type" aria-label="Open Graph type">
+                <option value="website" selected>Website</option>
+                <option value="article">Article</option>
+                <option value="product">Product</option>
+              </select>
+              <p class="ctl-help">Sets <code>og:type</code>. Twitter Card defaults to <code>summary_large_image</code>.</p>
+            </div>
+          </div>
+
+          <div class="ctl-row">
+            <label class="ctl-label" for="ctl-desc">Description (og:description)</label>
+            <textarea class="ctl-in" id="ctl-desc" name="description" rows="3" placeholder="One or two concise sentences that make people click"></textarea>
+            <div class="ctl-count" id="ctl-desc-count" aria-live="polite"></div>
+          </div>
+
+          <div class="ctl-grid-2">
+            <div class="ctl-row">
+              <label class="ctl-label" for="ctl-image">Image URL (og:image)</label>
+              <input class="ctl-in" id="ctl-image" name="image" type="url" placeholder="https://example.com/og-image.jpg" inputmode="url" />
+              <p class="ctl-help">Recommended: 1200×630 (1.91:1). Min 600×315. Twitter large image: 1200×628.</p>
+              <div class="ctl-image-status" id="ctl-image-status" role="status" aria-live="polite"></div>
+            </div>
+            <div class="ctl-row">
+              <label class="ctl-label" for="ctl-twitter-card">Twitter Card</label>
+              <select class="ctl-in" id="ctl-twitter-card" name="twitterCard" aria-label="Twitter Card type">
+                <option value="summary_large_image" selected>summary_large_image</option>
+                <option value="summary">summary</option>
+              </select>
+              <p class="ctl-help">Twitter meta will mirror OG fields unless overridden in the raw block.</p>
+            </div>
+          </div>
+
+          <div class="ctl-row">
+            <label class="ctl-label" for="ctl-raw">Raw &lt;meta&gt; tags (paste here)</label>
+            <textarea class="ctl-in ctl-codebox" id="ctl-raw" name="raw" rows="8" placeholder='&lt;meta property="og:title" content="..."&gt;
+&lt;meta property="og:description" content="..."&gt;
+&lt;meta property="og:image" content="..."&gt;
+&lt;meta property="og:url" content="..."&gt;'></textarea>
+            <p class="ctl-help">Auto-parses OG/Twitter tags. Fields above stay in sync.</p>
+          </div>
+        </fieldset>
+
+        <!-- Actions -->
+        <div class="u-flex u-gap-3 u-mt-4">
+          <button type="button" class="ctl-btn" id="ctl-copy">Copy Meta Block</button>
+          <button type="button" class="ctl-btn ctl-btn--ghost" id="ctl-download">Download meta.html</button>
+          <button type="reset" class="ctl-btn ctl-btn--ghost" id="ctl-reset">Reset</button>
+        </div>
+      </form>
+
+      <!-- Validation -->
+      <section class="ctl-validate u-mt-5" aria-labelledby="ctl-validate-h">
+        <h2 id="ctl-validate-h" class="ctl-section-title">Validation</h2>
+        <ul id="ctl-validation-list" class="ctl-list" role="list"></ul>
+      </section>
+
+      <!-- Previews -->
+      <section class="ctl-previews u-mt-5" aria-labelledby="ctl-previews-h">
+        <h2 id="ctl-previews-h" class="ctl-section-title">Live Previews (static approximations)</h2>
+        <div class="ctl-grid-3">
+          <!-- Facebook -->
+          <article class="ctl-card ctl-card--preview" aria-label="Facebook preview" id="ctl-preview-fb">
+            <div class="ctl-preview-image"><img alt="" id="ctl-fb-img"></div>
+            <div class="ctl-preview-body">
+              <div class="ctl-preview-domain" id="ctl-fb-domain"></div>
+              <h3 class="ctl-preview-title" id="ctl-fb-title"></h3>
+              <p class="ctl-preview-desc" id="ctl-fb-desc"></p>
+            </div>
+          </article>
+
+          <!-- X (Twitter) -->
+          <article class="ctl-card ctl-card--preview" aria-label="Twitter preview" id="ctl-preview-tw">
+            <div class="ctl-preview-image"><img alt="" id="ctl-tw-img"></div>
+            <div class="ctl-preview-body">
+              <h3 class="ctl-preview-title" id="ctl-tw-title"></h3>
+              <p class="ctl-preview-desc" id="ctl-tw-desc"></p>
+              <div class="ctl-preview-domain" id="ctl-tw-domain"></div>
+            </div>
+          </article>
+
+          <!-- LinkedIn -->
+          <article class="ctl-card ctl-card--preview" aria-label="LinkedIn preview" id="ctl-preview-li">
+            <div class="ctl-preview-image"><img alt="" id="ctl-li-img"></div>
+            <div class="ctl-preview-body">
+              <h3 class="ctl-preview-title" id="ctl-li-title"></h3>
+              <p class="ctl-preview-desc" id="ctl-li-desc"></p>
+              <div class="ctl-preview-domain" id="ctl-li-domain"></div>
+            </div>
+          </article>
+        </div>
+      </section>
+
+      <!-- Generated Meta (read-only) -->
+      <section class="u-mt-5" aria-labelledby="ctl-generated-h">
+        <h2 id="ctl-generated-h" class="ctl-section-title">Generated &lt;meta&gt; block</h2>
+        <pre class="ctl-code" id="ctl-generated" tabindex="0" aria-label="Generated meta code"></pre>
+      </section>
+    </section>
+
+    <aside class="ctl-aside">
+      <div class="ctl-badge">Tip</div>
+      <p>Related: <a href="/tools/utm-builder/">UTM Builder</a> • <a href="/tools/json-formatter-validator/">JSON Formatter</a></p>
+      <div class="ads-slot" id="ads-1" aria-label="Advertisement"></div>
+    </aside>
+
+    <section class="ctl-card" style="grid-column:1/-1">
+      <h2>How it works</h2>
+      <p>Fill the fields or paste your existing <code>&lt;meta&gt;</code> tags. The tool parses and normalizes Open Graph and Twitter Card values, generates a clean meta block, and renders approximation previews for Facebook, X (Twitter), and LinkedIn. Nothing is uploaded—everything runs in your browser.</p>
+      <ul>
+        <li><strong>Image check:</strong> we try to load your image URL to show dimensions and errors.</li>
+        <li><strong>Validation:</strong> checks for <code>og:title</code>, <code>og:description</code>, <code>og:image</code>, <code>og:url</code> and soft length limits.</li>
+        <li><strong>Copy/Download:</strong> copy to clipboard or download <code>meta.html</code> for quick use.</li>
+      </ul>
+
+      <h2>FAQs</h2>
+      <details>
+        <summary>Is this accurate to each platform’s live preview?</summary>
+        <p>These are static approximations to help you sanity-check content and crop. Actual render may vary per platform caches, fetch rules, and device.</p>
+      </details>
+      <details>
+        <summary>Do you fetch pages or scrape tags?</summary>
+        <p>No. This tool is 100% client-side. Paste the tags yourself or fill the fields—we don’t call external APIs.</p>
+      </details>
+    </section>
+  </main>
+
+  <footer id="ctl-global-footer"></footer>
+
+  <!-- Global + Tool JS -->
+  <script src="/assets/js/ctl.js" type="module"></script>
+  <script src="/assets/js/ui.js" type="module"></script>
+  <script src="./tool.js" type="module"></script>
+  <script src="/assets/js/layout.js" type="module"></script>
+  <script>document.getElementById('year').textContent = new Date().getFullYear();</script>
+</body>
+</html>

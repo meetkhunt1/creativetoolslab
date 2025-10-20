@@ -1,0 +1,34 @@
+/* Cron Expression Generator – tool.css (namespaced ctl-) */
+
+#app .ctl-field { display: flex; flex-direction: column; gap: var(--space-2); }
+#app .ctl-builder { grid-template-columns: 1fr; }
+#app .ctl-result-row { flex-wrap: wrap; }
+#app .ctl-result { min-width: 220px; flex: 1 1 auto; }
+#app .ctl-result__label { display: block; font-weight: 600; margin-bottom: var(--space-2); }
+#app .ctl-sep { border: none; border-top: 1px solid var(--line); }
+
+#ctl-cron-out { white-space: pre; user-select: text; }
+#ctl-parse-status { margin-top: 6px; font-size: 14px; }
+
+#app .ctl-chip {
+  border: 1px solid var(--line);
+  background: #fff;
+  border-radius: 999px;
+  padding: 6px 10px;
+  cursor: pointer;
+  font: inherit;
+}
+#app .ctl-chip:hover { text-decoration: underline; }
+
+#app .ctl-next { padding-left: 20px; }
+#app .ctl-next li { margin: 6px 0; }
+
+@media (min-width: 720px) {
+  #app .ctl-builder { grid-template-columns: repeat(3, 1fr); }
+}
+
+.ctl-validate--ok { color: var(--success); }
+.ctl-validate--err { color: var(--danger); }
+
+/* Improve code block usability */
+#app .ctl-code:focus-visible { box-shadow: var(--focus-ring); outline: none; }

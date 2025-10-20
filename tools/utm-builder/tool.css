@@ -1,0 +1,17 @@
+/* Namespaced, minimal additions */
+#app .ctl-pair { display: grid; grid-template-columns: 200px 1fr; gap: var(--space-3); }
+#app .ctl-utmb-grid { display: grid; gap: var(--space-4); }
+@media (min-width: 720px){
+  #app .ctl-utmb-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+}
+#app .ctl-opt-row { display: grid; gap: var(--space-3); }
+@media (min-width: 880px){
+  #app .ctl-opt-row { grid-template-columns: 1fr 1fr 1fr; align-items: center; }
+}
+#app .ctl-opt { display: flex; gap: var(--space-3); align-items: center; }
+#app .ctl-copy-row { display: grid; gap: var(--space-3); }
+@media (min-width: 720px){
+  #app .ctl-copy-row { grid-template-columns: 1fr auto; align-items: center; }
+}
+#ctl-preview { white-space: pre-wrap; word-break: break-all; }
+.ctl-error { color: var(--danger); margin-top: var(--space-2); }

@@ -1,0 +1,146 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+
+  <title>JSON Formatter & Validator – Free Online Tool | CreativeToolsLab</title>
+  <meta name="description" content="Format, validate, minify, and beautify JSON instantly in your browser. Copy or download the cleaned JSON for developers and data work." />
+
+  <link rel="icon" href="/favicon.ico" />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+
+  <!-- Global + tool CSS -->
+  <link rel="stylesheet" href="/assets/css/base.css" />
+  <link rel="stylesheet" href="./tool.css" />
+
+  <!-- Open Graph -->
+  <meta property="og:title" content="JSON Formatter & Validator – CreativeToolsLab">
+  <meta property="og:description" content="Format, validate, minify, and beautify JSON instantly in your browser.">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://creativetoolslab.com/tools/json-formatter-validator/">
+  <meta property="og:image" content="https://creativetoolslab.com/og/json-formatter-validator.png">
+
+  <!-- Canonical -->
+  <link rel="canonical" href="https://creativetoolslab.com/tools/json-formatter-validator/">
+</head>
+<body>
+  <header id="ctl-global-header"></header>
+
+  <main class="ctl-container ctl-grid ctl-grid--2 u-mt-5">
+    <section class="ctl-hero" style="grid-column:1/-1">
+      <h1>JSON Formatter & Validator</h1>
+      <p>Validate, pretty-print, minify, and clean JSON — all in your browser.</p>
+    </section>
+
+    <!-- TOOL UI -->
+    <section class="ctl-card" id="app" aria-labelledby="ctl-app-title">
+      <h2 id="ctl-app-title" class="u-mt-0" style="margin-top:0">Editor</h2>
+
+      <!-- Controls row -->
+      <div class="ctl-toolbar u-mt-3" role="group" aria-label="Editor controls">
+        <div class="ctl-toolbar__left">
+          <label for="ctl-file" class="ctl-file-label ctl-btn ctl-btn--ghost" tabindex="0">
+            <input id="ctl-file" class="ctl-file" type="file" accept=".json,application/json" aria-label="Upload JSON file" />
+            Upload .json
+          </label>
+
+          <label for="ctl-examples" class="visually-hidden">Load example</label>
+          <select id="ctl-examples" class="ctl-in ctl-in--sm" aria-label="Examples">
+            <option value="">Examples…</option>
+            <option value="valid">Valid JSON (object)</option>
+            <option value="invalid">Invalid JSON (missing comma)</option>
+          </select>
+
+          <label for="ctl-indent" class="visually-hidden">Indentation</label>
+          <select id="ctl-indent" class="ctl-in ctl-in--sm" aria-label="Indentation">
+            <option value="2" selected>Indent: 2 spaces</option>
+            <option value="4">Indent: 4 spaces</option>
+          </select>
+
+          <label class="ctl-toggle" aria-label="Sort keys alphabetically">
+            <input id="ctl-sort" type="checkbox" />
+            <span>Sort keys</span>
+          </label>
+        </div>
+
+        <div class="ctl-toolbar__right">
+          <button id="ctl-validate" class="ctl-btn" data-primary>Validate</button>
+          <button id="ctl-pretty" class="ctl-btn">Format (Pretty)</button>
+          <button id="ctl-minify" class="ctl-btn ctl-btn--ghost">Minify</button>
+          <button id="ctl-clear" class="ctl-btn ctl-btn--ghost">Clear</button>
+        </div>
+      </div>
+
+      <!-- Grid: input / output -->
+      <div class="ctl-io u-mt-4">
+        <div class="ctl-io__panel">
+          <label for="ctl-input" class="ctl-label">Input JSON</label>
+          <textarea id="ctl-input" class="ctl-in ctl-code ctl-textarea" spellcheck="false" aria-describedby="ctl-input-help"></textarea>
+          <div id="ctl-input-help" class="ctl-help">Paste raw JSON or upload a file. Your data never leaves your browser.</div>
+
+          <div class="ctl-meta u-mt-3" aria-live="polite">
+            <span id="ctl-input-stats" class="ctl-meta__item">0 lines • 0 chars</span>
+            <span id="ctl-input-root" class="ctl-meta__item" aria-label="Root summary"></span>
+          </div>
+        </div>
+
+        <div class="ctl-io__panel">
+          <label for="ctl-output" class="ctl-label">Output</label>
+          <textarea id="ctl-output" class="ctl-in ctl-code ctl-textarea" spellcheck="false" readonly aria-readonly="true"></textarea>
+
+          <div class="u-flex u-gap-3 u-mt-3">
+            <button id="ctl-copy" class="ctl-btn">Copy Output</button>
+            <button id="ctl-download" class="ctl-btn ctl-btn--ghost">Download</button>
+          </div>
+
+          <div class="ctl-meta u-mt-3" aria-live="polite">
+            <span id="ctl-output-stats" class="ctl-meta__item">0 lines • 0 chars</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Status bar -->
+      <div id="ctl-status" class="ctl-status u-mt-4" role="status" aria-live="polite" aria-atomic="true">
+        <span id="ctl-status-badge" class="ctl-status__badge" aria-hidden="true">–</span>
+        <span id="ctl-status-text">Waiting for input…</span>
+      </div>
+    </section>
+
+    <aside class="ctl-aside">
+      <div class="ctl-badge">Tip</div>
+      <p>Related: <a href="/tools/csv-to-json/">CSV to JSON</a> · <a href="/tools/accessibility-checker-lite/">Accessibility Checker (Lite)</a></p>
+
+      <div class="ads-slot" id="ads-1" aria-label="Advertisement"></div>
+    </aside>
+
+    <section class="ctl-card" style="grid-column:1/-1">
+      <h2>How it works</h2>
+      <p>This tool runs 100% in your browser. Paste JSON or upload a <code>.json</code> file, then click <strong>Validate</strong> to check syntax. Use <strong>Format (Pretty)</strong> to add indentation, or <strong>Minify</strong> to remove whitespace. You can optionally <strong>sort keys</strong> alphabetically and choose an <strong>indent size</strong>. Copy or download the result for quick development and data workflows.</p>
+
+      <h2>FAQs</h2>
+      <details>
+        <summary>Is my JSON uploaded to a server?</summary>
+        <p>No. Everything happens locally in your browser. There’s no backend.</p>
+      </details>
+      <details>
+        <summary>Why do I see a line/column in errors?</summary>
+        <p>We read the parser’s error position and map it to a line/column based on your input, so you can fix issues faster.</p>
+      </details>
+    </section>
+  </main>
+
+  <footer id="ctl-global-footer"></footer>
+
+  <!-- Global + tool JS -->
+  <script src="/assets/js/ctl.js" type="module"></script>
+  <script src="/assets/js/ui.js" type="module"></script>
+  <script src="./tool.js" type="module"></script>
+  <script src="/assets/js/layout.js" type="module"></script>
+  <script>
+    document.getElementById('year').textContent = new Date().getFullYear();
+  </script>
+</body>
+</html>

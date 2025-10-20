@@ -1,0 +1,74 @@
+/* Accessibility Checker Lite — minimal, CTL-namespaced */
+#app .ctl-in--mono {
+  font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+  min-height: 260px;
+}
+
+.ctl-summary {
+  display: flex;
+  gap: var(--space-3);
+  flex-wrap: wrap;
+}
+
+.ctl-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 6px 10px;
+  border-radius: 999px;
+  border: 1px solid var(--line);
+  background: #fff;
+  font-size: 13px;
+}
+
+.ctl-chip[data-chip="pass"] { border-color: #D1FAE5; }
+.ctl-chip[data-chip="warn"] { border-color: #FEF3C7; }
+.ctl-chip[data-chip="error"] { border-color: #FECACA; }
+
+.ctl-issues {
+  list-style: none;
+  padding-left: 0;
+  margin: 0;
+  display: grid;
+  gap: 12px;
+}
+
+.ctl-issue {
+  border: 1px solid var(--line);
+  border-left-width: 6px;
+  border-radius: 12px;
+  padding: 12px;
+  background: #fff;
+}
+
+.ctl-issue[data-sev="Info"]   { border-left-color: var(--primary); }
+.ctl-issue[data-sev="Warning"]{ border-left-color: var(--warn); }
+.ctl-issue[data-sev="Error"]  { border-left-color: var(--danger); }
+
+.ctl-issue h4 {
+  margin: 0 0 6px 0;
+  font-size: 15px;
+}
+
+.ctl-issue .ctl-meta {
+  font-size: 12px;
+  color: var(--ink-500);
+  margin-top: 6px;
+  word-break: break-all;
+}
+
+.ctl-issue code {
+  font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+}
+
+.ctl-form .ctl-label {
+  font-weight: 600;
+  display: inline-block;
+  margin-bottom: 6px;
+}
+
+/* Small helper to present sample JSON nicely */
+#ctl-report-preview {
+  max-height: 260px;
+  overflow: auto;
+}

@@ -1,0 +1,78 @@
+/* Namespace everything with ctl- */
+
+.ctl-fieldset { border: 1px solid var(--line); border-radius: var(--radius-card); padding: 16px; }
+.ctl-legend { font-weight: 700; padding: 0 6px; }
+
+.ctl-label { display: block; font-weight: 600; margin-bottom: 6px; }
+.u-sr-only { position: absolute !important; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0,0,1px,1px); border: 0; }
+.u-m-0 { margin: 0; }
+
+/* Logo box */
+.ctl-logo-box {
+  border: 1px dashed var(--line);
+  border-radius: var(--radius-card);
+  padding: 10px;
+  background: #fff;
+  display: grid;
+  place-items: center;
+  height: 160px;
+}
+#ctl-logo-canvas { max-width: 100%; height: 140px; }
+
+/* Table */
+.ctl-table-wrap { overflow-x: auto; border: 1px solid var(--line); border-radius: var(--radius-card); }
+.ctl-table { width: 100%; border-collapse: separate; border-spacing: 0; }
+.ctl-table th, .ctl-table td { border-bottom: 1px solid var(--line); text-align: left; padding: 10px; vertical-align: top; }
+.ctl-table thead th { background: #f3f5f8; font-weight: 700; }
+.ctl-table tbody tr:last-child td { border-bottom: none; }
+.ctl-table input { width: 100%; }
+.ctl-table .ctl-num { text-align: right; }
+
+/* Summary card */
+.ctl-summary { position: sticky; top: 76px; align-self: start; }
+.ctl-summary__card { position: relative; }
+.ctl-pill { display: inline-block; background: var(--primary); color: #fff; font-weight: 700; padding: 2px 8px; border-radius: 999px; font-size: 12px; }
+
+/* Summary list */
+.ctl-sum { margin: 0; }
+.ctl-sum__row { display: flex; align-items: center; justify-content: space-between; padding: 8px 0; border-bottom: 1px dashed var(--line); }
+.ctl-sum__row:last-child { border-bottom: none; }
+.ctl-sum__row--grand { font-size: 18px; font-weight: 700; padding-top: 12px; }
+
+/* Buttons alignment on small screens */
+@media (max-width: 980px){
+  .ctl-summary { position: static; }
+}
+
+/* Focus ring for keyboard */
+input:focus-visible, select:focus-visible, textarea:focus-visible, button:focus-visible {
+  box-shadow: var(--focus-ring);
+}
+
+/* Print Styles */
+@media print {
+  body { background: #fff; color: #000; }
+  .ctl-header, .ctl-footer, .ctl-aside, #ctl-add-row, #ctl-dup-row, #ctl-del-row,
+  #ctl-print, #ctl-copy-link, #ctl-save, #ctl-reset, .ctl-badge, .ads-slot,
+  #ctl-proforma-toggle, #ctl-cents-toggle, #ctl-tax-preset, #ctl-tax-mode {
+    display: none !important;
+  }
+
+  /* Make inputs appear as read-only text for print */
+  input, select, textarea {
+    border: none !important;
+    padding: 0 !important;
+    outline: none !important;
+    box-shadow: none !important;
+    background: transparent !important;
+    appearance: none !important;
+  }
+
+  .ctl-card { border: none; box-shadow: none; }
+  .ctl-table th, .ctl-table td { border-color: #ddd; }
+  .ctl-grid { gap: 12px !important; }
+
+  /* Page breaks for long lists */
+  .ctl-table-wrap { page-break-inside: auto; }
+  .ctl-table tbody tr { page-break-inside: avoid; page-break-after: auto; }
+}
