@@ -4,11 +4,18 @@
   <meta charset="utf-8"/>
   <meta name="viewport" content="width=device-width,initial-scale=1"/>
   <script>
-  fetch('/assets/includes/global-head.html')
-    .then(res => res.text())
-    .then(html => document.write(html))
-    .catch(err => console.error('Failed to load global head:', err));
+  (function() {
+    fetch('/assets/includes/global-head.html')
+      .then(res => res.text())
+      .then(html => {
+        const temp = document.createElement('template');
+        temp.innerHTML = html.trim();
+        document.head.prepend(...temp.content.childNodes);
+      })
+      .catch(err => console.error('Failed to load global head:', err));
+  })();
 </script>
+
   <title>CreativeToolsLab – Free, Fast, Frontend-Only Web Tools</title>
   <meta name="description" content="A growing hub of free, fast, frontend-only tools for developers and small businesses. No logins. No uploads. Everything runs in your browser."/>
   <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
