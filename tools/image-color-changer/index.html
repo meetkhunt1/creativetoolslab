@@ -1,0 +1,63 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <script>
+  fetch('/assets/includes/global-head.html')
+    .then(res => res.text())
+    .then(html => document.write(html))
+    .catch(err => console.error('Failed to load global head:', err));
+</script>
+  <title>Image Color Changer</title>
+  <link rel="stylesheet" href="tool.css">
+</head>
+<body>
+  <header class="bar">
+    <button id="btnUpload" class="btn">Upload</button>
+    <input id="fileInput" type="file" accept=".png,.jpg,.jpeg,.webp,.svg,image/*" hidden>
+    <div class="spacer"></div>
+    <button id="btnDownload" class="btn" disabled>Download PNG</button>
+  </header>
+
+  <main class="wrap">
+    <section class="panes">
+      <div class="pane">
+        <div class="pane-title">Before</div>
+        <canvas id="canvasBefore"></canvas>
+      </div>
+      <div class="pane">
+        <div class="pane-title">After</div>
+        <canvas id="canvasAfter"></canvas>
+      </div>
+    </section>
+
+    <section class="controls">
+      <div class="row">
+        <label>Source</label>
+        <input type="color" id="srcColor" value="#808080">
+        <button id="btnPick" class="btn btn-small">Eyedropper</button>
+      </div>
+      <div class="row">
+        <label>Target</label>
+        <input type="color" id="tgtColor" value="#ff4d4d">
+      </div>
+      <div class="row">
+        <label>Tolerance</label>
+        <input type="range" id="tol" min="0.05" max="0.6" step="0.01" value="0.20">
+        <span id="tolVal">0.20</span>
+      </div>
+      <div class="row">
+        <label><input type="checkbox" id="preserveL" checked> Preserve luminance</label>
+      </div>
+      <div class="row actions">
+        <button id="btnApply" class="btn" disabled>Apply</button>
+        <button id="btnReset" class="btn btn-ghost" disabled>Reset</button>
+      </div>
+      <div class="note" id="note">Drop an image or click Upload. All processing is local.</div>
+    </section>
+  </main>
+
+  <script src="tool.js"></script>
+</body>
+</html>

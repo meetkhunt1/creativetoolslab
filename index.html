@@ -3,9 +3,19 @@
 <head>
   <meta charset="utf-8"/>
   <meta name="viewport" content="width=device-width,initial-scale=1"/>
+  <script>
+  fetch('/assets/includes/global-head.html')
+    .then(res => res.text())
+    .then(html => document.write(html))
+    .catch(err => console.error('Failed to load global head:', err));
+</script>
   <title>CreativeToolsLab – Free, Fast, Frontend-Only Web Tools</title>
   <meta name="description" content="A growing hub of free, fast, frontend-only tools for developers and small businesses. No logins. No uploads. Everything runs in your browser."/>
-  <link rel="icon" href="/favicon.ico"/>
+  <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="manifest" href="/site.webmanifest">
+
   <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="/assets/css/base.css"/>
@@ -16,6 +26,7 @@
   <meta property="og:url" content="https://creativetoolslab.com/">
   <meta property="og:image" content="https://creativetoolslab.com/og/home.png">
   <link rel="preload" href="/assets/css/header.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+  
 <noscript><link rel="stylesheet" href="/assets/css/header.css"></noscript>
 
 <link rel="preload" href="/assets/css/footer.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
