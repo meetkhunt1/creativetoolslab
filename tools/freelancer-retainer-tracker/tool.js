@@ -1,7 +1,7 @@
 // CTL – Freelancer Retainer Tracker (frontend-only)
 // Imports
 import { $, $$, on, storage, downloadText } from "/assets/js/ctl.js";
-import { toast, confirmModal } from "/assets/js/ui.js";
+import { toast } from "/assets/js/ui.js";
 
 // Constants
 const KEY = "ctl-freelancer-retainer-tracker-v1";

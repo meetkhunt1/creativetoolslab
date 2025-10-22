@@ -1,63 +1,167 @@
 <!doctype html>
 <html lang="en">
 <head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
   <script>
-  fetch('/assets/includes/global-head.html')
-    .then(res => res.text())
-    .then(html => document.write(html))
-    .catch(err => console.error('Failed to load global head:', err));
+  (function() {
+    fetch('/assets/includes/global-head.html')
+      .then(res => res.text())
+      .then(html => {
+        const temp = document.createElement('template');
+        temp.innerHTML = html.trim();
+        document.head.prepend(...temp.content.childNodes);
+      })
+      .catch(err => console.error('Failed to load global head:', err));
+  })();
 </script>
-  <title>Image Color Changer</title>
-  <link rel="stylesheet" href="tool.css">
+  <title>Image Color Changer – Precise Recolor for PNG/JPG/WebP/SVG | CreativeToolsLab</title>
+  <meta name="description" content="Recolor images with ΔE-accurate matching (OKLab), live preview, SVG palette auto-extract, and export to PNG/JPEG/WebP—fully in your browser." />
+
+  <link rel="icon" href="/favicon.ico" />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="/assets/css/base.css" />
+  <link rel="stylesheet" href="./tool.css" />
+
+  <!-- Open Graph -->
+  <meta property="og:title" content="Image Color Changer – CreativeToolsLab">
+  <meta property="og:description" content="ΔE-accurate recolor with live preview, SVG palette auto-extract, and PNG/JPEG/WebP export—100% in-browser.">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://creativetoolslab.com/tools/image-color-changer/">
+  <meta property="og:image" content="https://creativetoolslab.com/og/image-color-changer.png">
+  <link rel="canonical" href="https://creativetoolslab.com/tools/image-color-changer/">
 </head>
+
 <body>
-  <header class="bar">
-    <button id="btnUpload" class="btn">Upload</button>
-    <input id="fileInput" type="file" accept=".png,.jpg,.jpeg,.webp,.svg,image/*" hidden>
-    <div class="spacer"></div>
-    <button id="btnDownload" class="btn" disabled>Download PNG</button>
-  </header>
+   <header id="ctl-global-header"></header>
 
-  <main class="wrap">
-    <section class="panes">
-      <div class="pane">
-        <div class="pane-title">Before</div>
-        <canvas id="canvasBefore"></canvas>
+  <div id="ctl-image-color-changer">
+    <div class="ctl-page">
+      <div class="ctl-page-title">
+        <h1>Free Image Color Changer Online</h1>
+        <p>Quickly change PNG, JPEG, SVG image colors online—no Photoshop required, works in seconds.</p>
       </div>
-      <div class="pane">
-        <div class="pane-title">After</div>
-        <canvas id="canvasAfter"></canvas>
-      </div>
-    </section>
 
-    <section class="controls">
-      <div class="row">
-        <label>Source</label>
-        <input type="color" id="srcColor" value="#808080">
-        <button id="btnPick" class="btn btn-small">Eyedropper</button>
-      </div>
-      <div class="row">
-        <label>Target</label>
-        <input type="color" id="tgtColor" value="#ff4d4d">
-      </div>
-      <div class="row">
-        <label>Tolerance</label>
-        <input type="range" id="tol" min="0.05" max="0.6" step="0.01" value="0.20">
-        <span id="tolVal">0.20</span>
-      </div>
-      <div class="row">
-        <label><input type="checkbox" id="preserveL" checked> Preserve luminance</label>
-      </div>
-      <div class="row actions">
-        <button id="btnApply" class="btn" disabled>Apply</button>
-        <button id="btnReset" class="btn btn-ghost" disabled>Reset</button>
-      </div>
-      <div class="note" id="note">Drop an image or click Upload. All processing is local.</div>
-    </section>
-  </main>
+      <main>
+        <div class="ctl-upload" id="upload-container">
+          <div id="dropzone" class="ctl-dropzone">
+            <div class="ctl-upload-icon">
+              <svg width="40" height="40" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M12 16L12 8" stroke="#7E8C9A" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                <path d="M9 11L12 8 15 11" stroke="#7E8C9A" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                <path d="M8 16H16" stroke="#7E8C9A" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                <path d="M3 19H21" stroke="#7E8C9A" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+            </div>
+            <p>Drag and drop an image here or <span class="ctl-upload-btn">browse</span></p>
+            <p class="ctl-upload-info">Supports JPG, PNG, SVG (max 10MB)</p>
+            <input type="file" id="file-input" accept=".jpg,.jpeg,.png,.svg,.webp" hidden>
+          </div>
+        </div>
 
-  <script src="tool.js"></script>
+        <div class="ctl-editor" id="editor-container" style="display:none">
+          <div class="ctl-editor-header">
+            <h2>Edit Image</h2>
+            <button id="back-btn" class="ctl-back-btn">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M19 12H5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                <path d="M12 19L5 12 12 5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+              Back
+            </button>
+          </div>
+
+          <div class="ctl-preview-grid">
+            <div class="ctl-preview">
+              <h3>Original Image</h3>
+              <div class="ctl-image-holder" id="original-image-holder"></div>
+            </div>
+            <div class="ctl-preview">
+              <h3>Modified Image</h3>
+              <div class="ctl-image-holder" id="modified-image-holder"></div>
+            </div>
+          </div>
+
+          <div class="ctl-editor-options">
+            <div class="ctl-color-replacements">
+              <h3>Color Replacements</h3>
+              <div id="color-replacements-container"></div>
+              <button id="add-color-btn" class="ctl-add-color-btn">+ Add Another Color Replacement</button>
+            </div>
+
+            <div class="ctl-actions">
+              <div class="ctl-download">
+                <button id="download-btn" class="ctl-primary-btn">
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M21 15V19C21 19.5304 20.7893 20.0391 20.4142 20.4142C20.0391 20.7893 19.5304 21 19 21H5C4.46957 21 3.96086 20.7893 3.58579 20.4142C3.21071 20.0391 3 19.5304 3 19V15" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                    <path d="M7 10L12 15 17 10" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                    <path d="M12 15V3" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                  </svg>
+                  Download
+                </button>
+                <div class="ctl-download-format">
+                  <select id="download-format">
+                    <option value="png">PNG</option>
+                    <option value="jpeg">JPEG</option>
+                    <option value="webp">WebP</option>
+                    <option value="svg">SVG (if source is SVG)</option>
+                  </select>
+                </div>
+              </div>
+
+              <div class="ctl-edit-actions">
+                <button id="undo-btn" class="ctl-action-btn" disabled>
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M3 10H13C17.4183 10 21 13.5817 21 18V20M3 10L9 16M3 10L9 4" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                  </svg>
+                  Undo
+                </button>
+                <button id="redo-btn" class="ctl-action-btn" disabled>
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M21 10H11C6.58172 10 3 13.5817 3 18V20M21 10L15 16M21 10L15 4" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                  </svg>
+                  Redo
+                </button>
+                <button id="reset-btn" class="ctl-action-btn">
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M21 3V8H16" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                    <path d="M3 16V21H8" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                    <path d="M18.5 8C17.3177 6.4404 15.6287 5.35947 13.7467 4.95123C11.8647 4.54299 9.9047 4.82392 8.2304 5.74056C6.55609 6.6572 5.2796 8.15232 4.62842 9.95702C3.97724 11.7617 3.99009 13.7381 4.666 15.5329" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                    <path d="M5.5 16C6.6823 17.5596 8.3713 18.6405 10.2533 19.0488C12.1353 19.457 14.0953 19.1761 15.7696 18.2594C17.4439 17.3428 18.7204 15.8477 19.3716 14.043C20.0228 12.2383 20.0099 10.2619 19.334 8.46711" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                  </svg>
+                  Reset
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div id="help-modal" class="ctl-modal">
+          <div class="ctl-modal-content">
+            <button class="ctl-close-modal">&times;</button>
+            <h2>How to Use Image Color Changer</h2>
+            <ol>
+              <li>Upload an image by dragging and dropping or using the browse button</li>
+              <li>For regular images: Select a source color you want to change and a target color</li>
+              <li>For SVG images: Colors are automatically detected and listed for you to modify</li>
+              <li>Adjust the color tolerance slider if needed</li>
+              <li>Use the undo, redo, and reset buttons as needed</li>
+              <li>When satisfied, select your preferred download format and click Download</li>
+            </ol>
+          </div>
+        </div>
+      </main>
+    </div>
+  </div>
+
+  <footer id="ctl-global-footer"></footer>
+
+   <script src="/assets/js/ctl.js" type="module"></script>
+  <script src="/assets/js/ui.js" type="module"></script>
+  <script src="./tool.js" type="module"></script>
+  <script src="/assets/js/layout.js" type="module"></script>
 </body>
 </html>

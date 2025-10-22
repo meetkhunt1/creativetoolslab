@@ -2,6 +2,18 @@
 <html lang="en">
 <head>
   <meta charset="utf-8"/><meta name="viewport" content="width=device-width,initial-scale=1"/>
+  <script>
+  (function() {
+    fetch('/assets/includes/global-head.html')
+      .then(res => res.text())
+      .then(html => {
+        const temp = document.createElement('template');
+        temp.innerHTML = html.trim();
+        document.head.prepend(...temp.content.childNodes);
+      })
+      .catch(err => console.error('Failed to load global head:', err));
+  })();
+</script>
   <title>All Tools – CreativeToolsLab</title>
   <meta name="description" content="All free, frontend-only tools by CreativeToolsLab."/>
   <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
